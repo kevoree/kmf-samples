@@ -1,1 +1,11 @@
 target/
+.classpath
+.project
+.settings/
+*.iml
+*.ipr
+*.iws
+/.idea/
+**.idea
+.DS_Store
+**/.DS_Store
