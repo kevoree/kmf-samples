@@ -4,14 +4,15 @@ import jet.runtime.typeinfo.JetValueParameter;
 import org.jetbrains.annotations.NotNull;
 import org.junit.Test;
 import org.kevoree.*;
+import org.kevoree.container.KMFContainerImpl;
 import org.kevoree.impl.DefaultKevoreeFactory;
+import org.kevoree.modeling.api.KMFContainer;
 import org.kevoree.modeling.api.events.ModelElementListener;
 import org.kevoree.modeling.api.events.ModelEvent;
 
 import java.util.concurrent.Semaphore;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 
 /**
  * Created by gregory.nain on 21/02/2014.
@@ -118,5 +119,37 @@ public class ModelTest {
 
     }
 
+
+    @Test
+    public void avoidMemoryLeaksTest() {
+
+        final ContainerRoot root = factory.createContainerRoot();
+
+        final ContainerNode node = factory.createContainerNode();
+        node.setName("node0");
+        root.addNodes(node);
+
+        final ComponentType cType = factory.createComponentType();
+        cType.setName("testCType");
+        root.addTypeDefinitions(cType);
+
+        final PortTypeRef ptr = factory.createPortTypeRef();
+        ptr.setName("p0");
+        cType.addProvided(ptr);
+
+        final ComponentInstance inst = factory.createComponentInstance();
+        inst.setName("cpInst");
+        node.addComponents(inst);
+
+        final Port port = factory.createPort();
+        inst.addProvided(port);
+        port.setPortTypeRef(ptr);
+
+        String portPath = port.path();
+        assertTrue("PortTypeRef does not contain an inbound ref for Port", ((KMFContainerImpl)ptr).getInternal_inboundReferences().containsKey(portPath));
+        port.delete();
+        assertFalse("PortTypeRef still contains an inbound ref for Port", ((KMFContainerImpl) ptr).getInternal_inboundReferences().containsKey(portPath));
+
+    } 
 
 }
