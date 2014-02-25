@@ -28,7 +28,7 @@ var model2 = factory.createContainerRoot();
 
 var listener = { elementChanged : function(event){
 
-    switch(event.getType()){
+    switch(event.etype){
         case actionTypes.object.ADD:
               console.log("Add event ! "+event);
               break;

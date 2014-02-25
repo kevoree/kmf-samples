@@ -35,7 +35,7 @@ public class ModelTreeEventsTest {
         assertTrue("Source is not correct. Expected:" + expectedPath + " Was:" + evt.getSourcePath(), evt.getSourcePath().equals(expectedPath));
         assertTrue("ElementAttributeName not correct. Expected: " + expectedElementAttributeName + " Was:" + evt.getElementAttributeName(), evt.getElementAttributeName().equals(expectedElementAttributeName));
         assertTrue("ElementAttributeType not correct. Expected: " + expectedElementAttributeType + " Was:" + evt.getElementAttributeType(), evt.getElementAttributeType() == expectedElementAttributeType);
-        assertTrue("EventType is not correct. Expected:" + expectedEventType + " Was:" + evt.getType(), evt.getType() == expectedEventType);
+        assertTrue("EventType is not correct. Expected:" + expectedEventType + " Was:" + evt.getEtype(), evt.getEtype() == expectedEventType);
         assertTrue("Event Value is not correct. Expected:" + expectedValue + " Was:" + evt.getValue(), evt.getValue() == expectedValue);
     }
 
@@ -43,7 +43,7 @@ public class ModelTreeEventsTest {
         assertTrue("Source is not correct. Expected:" + expectedPath + " Was:" + evt.getSourcePath(), evt.getSourcePath().equals(expectedPath));
         assertTrue("ElementAttributeName not correct. Expected: " + expectedElementAttributeName + " Was:" + evt.getElementAttributeName(), evt.getElementAttributeName().equals(expectedElementAttributeName));
         assertTrue("ElementAttributeType not correct. Expected: " + expectedElementAttributeType + " Was:" + evt.getElementAttributeType(), evt.getElementAttributeType() == expectedElementAttributeType);
-        assertTrue("EventType is not correct. Expected:" + expectedEventType + " Was:" + evt.getType(), evt.getType() == expectedEventType);
+        assertTrue("EventType is not correct. Expected:" + expectedEventType + " Was:" + evt.getEtype(), evt.getEtype() == expectedEventType);
         assertTrue("Event Value is not correct. Expected:" + expectedValues + " Was:" + evt.getValue(), ((List) evt.getValue()).containsAll(expectedValues));
     }
 
@@ -74,7 +74,7 @@ public class ModelTreeEventsTest {
             public void elementChanged(ModelEvent evt) {
 
                 System.out.println("FSM::" + evt.toString());
-                if (evt.getSourcePath().equals(originalT0Path) && evt.getType() == ActionType.SET && evt.getElementAttributeName().equals("name")) {
+                if (evt.getSourcePath().equals(originalT0Path) && evt.getEtype() == ActionType.SET && evt.getElementAttributeName().equals("name")) {
                     assertEvent(evt, originalT0Path, "name", ElementAttributeType.ATTRIBUTE, ActionType.SET, "t0");
                     setNameT0_Fsm.release();
                 }
@@ -86,7 +86,7 @@ public class ModelTreeEventsTest {
             public void elementChanged(ModelEvent evt) {
 
                 System.out.println("S0::" + evt.toString());
-                if (evt.getSourcePath().equals(originalT0Path) && evt.getType() == ActionType.SET && evt.getElementAttributeName().equals("name")) {
+                if (evt.getSourcePath().equals(originalT0Path) && evt.getEtype() == ActionType.SET && evt.getElementAttributeName().equals("name")) {
                     assertEvent(evt, originalT0Path, "name", ElementAttributeType.ATTRIBUTE, ActionType.SET, "t0");
                     setNameT0_S0.release();
                 }
@@ -111,7 +111,7 @@ public class ModelTreeEventsTest {
             @Override
             public void elementChanged(ModelEvent evt) {
 
-                if (evt.getSourcePath().equals(originalT1Path) && evt.getType() == ActionType.SET && evt.getElementAttributeName().equals("name")) {
+                if (evt.getSourcePath().equals(originalT1Path) && evt.getEtype() == ActionType.SET && evt.getElementAttributeName().equals("name")) {
                     assertEvent(evt, originalT1Path, "name", ElementAttributeType.ATTRIBUTE, ActionType.SET, "t1");
                     setNameT1_Fsm.release();
                 }
@@ -124,7 +124,7 @@ public class ModelTreeEventsTest {
 
                 //assertEvent(evt, t1.path(), "name", ElementAttributeType.Attribute, EventType.Set, "t1");
                 try {
-                    if (evt.getSourcePath().equals(originalT1Path) && evt.getType() == ActionType.SET && evt.getElementAttributeName().equals("name")) {
+                    if (evt.getSourcePath().equals(originalT1Path) && evt.getEtype() == ActionType.SET && evt.getElementAttributeName().equals("name")) {
                         assertEvent(evt, originalT1Path, "name", ElementAttributeType.ATTRIBUTE, ActionType.SET, "t1");
                         setNameT1_S0.acquire();
                     }

@@ -44,7 +44,7 @@ public class ModelElementEventsTest {
         assertTrue("Source is not correct. Expected:" + expectedPath + " Was:" + evt.getSourcePath() , evt.getSourcePath().equals(expectedPath));
         assertTrue("ElementAttributeName not correct. Expected: "+expectedElementAttributeName+" Was:" + evt.getElementAttributeName(), evt.getElementAttributeName().equals(expectedElementAttributeName));
         assertTrue("ElementAttributeType not correct. Expected: "+expectedElementAttributeType+" Was:" + evt.getElementAttributeType(), evt.getElementAttributeType()==expectedElementAttributeType);
-        assertTrue("EventType is not correct. Expected:" +expectedEventType+" Was:" + evt.getType(), evt.getType() == expectedEventType);
+        assertTrue("EventType is not correct. Expected:" +expectedEventType+" Was:" + evt.getEtype(), evt.getEtype() == expectedEventType);
         assertTrue("Event Value is not correct. Expected:" +expectedValue+" Was:" + evt.getValue(), evt.getValue()==expectedValue);
     }
 
@@ -52,7 +52,7 @@ public class ModelElementEventsTest {
         assertTrue("Source is not correct. Expected:" + expectedPath + " Was:" + evt.getSourcePath() , evt.getSourcePath().equals(expectedPath));
         assertTrue("ElementAttributeName not correct. Expected: "+expectedElementAttributeName+" Was:" + evt.getElementAttributeName(), evt.getElementAttributeName().equals(expectedElementAttributeName));
         assertTrue("ElementAttributeType not correct. Expected: "+expectedElementAttributeType+" Was:" + evt.getElementAttributeType(), evt.getElementAttributeType()==expectedElementAttributeType);
-        assertTrue("EventType is not correct. Expected:" +expectedEventType+" Was:" + evt.getType(), evt.getType() == expectedEventType);
+        assertTrue("EventType is not correct. Expected:" +expectedEventType+" Was:" + evt.getEtype(), evt.getEtype() == expectedEventType);
         assertTrue("Event Value is not correct. Expected:" +expectedValues+" Was:" + evt.getValue(), ((List)evt.getValue()).containsAll(expectedValues));
     }
 

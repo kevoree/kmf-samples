@@ -22,7 +22,7 @@ var actionTypes = kevmod.org.kevoree.modeling.api.util.ActionType;
 /* Declare events listener */
 
 var listener = { elementChanged : function(event){
-    switch(event.getType()){
+    switch(event.etype){
         case actionTypes.object.ADD:
               console.log("Add event ! "+event);
               break;
