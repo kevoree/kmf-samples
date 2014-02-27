@@ -145,11 +145,9 @@ public class ModelTest {
         inst.addProvided(port);
         port.setPortTypeRef(ptr);
 
-        String portPath = port.path();
-        assertTrue("PortTypeRef does not contain an inbound ref for Port", ((KMFContainerImpl)ptr).getInternal_inboundReferences().containsKey(portPath));
+        assertTrue("PortTypeRef does not contain an inbound ref for Port", ((KMFContainerImpl)ptr).getInternal_inboundReferences().containsKey(port));
         port.delete();
-        assertFalse("PortTypeRef still contains an inbound ref for Port", ((KMFContainerImpl) ptr).getInternal_inboundReferences().containsKey(portPath));
-
+        assertFalse("PortTypeRef still contains an inbound ref for Port", ((KMFContainerImpl) ptr).getInternal_inboundReferences().containsKey(port));
     } 
 
 }
