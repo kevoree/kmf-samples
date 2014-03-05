@@ -23,13 +23,13 @@ import java.util.Map;
  */
 public class SimpleFullSamplingTest {
     private static SmartGrid smartgrid = null;
-    private static String SEGMENT = "default_segment";
 
     private static final int NODES_PER_GRID = 100;
     private static final int SAMPLES = 10000;
 
     private static JSONModelLoader loader = new JSONModelLoader();
-   private static DataStore datastore = new LevelDbDataStore("/Users/duke/Documents/dev/dukeboard/kevoree-modeling-framework/metamodel/smartgrid/smartgrid.tests/tempFullSampling");
+    private static DataStore datastore = new LevelDbDataStore("/Users/duke/Documents/dev/kevoreeTeam/kmf-samples/smartgrid/smartgrid.tests/target/tempFullSampling");
+    private static String SEGMENT = "default_segment";
 
 
     private static Map<SmartMeter, List<SmartMeter>> neighbors = new HashMap<SmartMeter, List<SmartMeter>>();
@@ -43,11 +43,12 @@ public class SimpleFullSamplingTest {
             neighbors.put(sm, n);
         }
     }
+
     private static List<SmartMeter> getNeighbor(SmartMeter sm) {
         List<SmartMeter> meters = new ArrayList<SmartMeter>();
-        for(SmartMeter s : neighbors.keySet()) {
-            if(s.getName().equals(sm.getName())) {
-              meters.addAll(neighbors.get(s));
+        for (SmartMeter s : neighbors.keySet()) {
+            if (s.getName().equals(sm.getName())) {
+                meters.addAll(neighbors.get(s));
             }
         }
 
@@ -77,7 +78,7 @@ public class SimpleFullSamplingTest {
         }
 
         //for (SmartMeter sm : neighbors.keySet()) {
-          //  System.out.println("SM " + sm.getName() + " > " + neighbors.get(sm));
+        //  System.out.println("SM " + sm.getName() + " > " + neighbors.get(sm));
         //}
 
     }
@@ -107,7 +108,7 @@ public class SimpleFullSamplingTest {
 
         }
         factory.clearCache();
-        System.out.println("finishing sampling..."+(System.currentTimeMillis()-before));
+        System.out.println("finishing sampling..." + (System.currentTimeMillis() - before));
 
         long start = System.currentTimeMillis();
 
