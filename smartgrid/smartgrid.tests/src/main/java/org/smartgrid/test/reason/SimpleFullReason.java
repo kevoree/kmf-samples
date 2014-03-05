@@ -15,7 +15,7 @@ import org.kevoree.modeling.datastores.leveldb.LevelDbDataStore;
  */
 public class SimpleFullReason {
 
-    private static DataStore datastore = new LevelDbDataStore("/Users/duke/Documents/dev/kevoreeTeam/kmf-samples/smartgrid/smartgrid.tests/target/tempFullSampling");
+    private static DataStore datastore = new LevelDbDataStore("/Users/thomas/dev/kmf-samples/smartgrid/smartgrid.tests/target/tempFullSampling");
     private static String SEGMENT = "default_segment";
 
     public static void main(String[] args) {
@@ -31,9 +31,13 @@ public class SimpleFullReason {
         factory.clearCache();
         //datastore.dump();
         long before = System.currentTimeMillis();
+        System.out.println("> " + before);
+
         System.out.println(predict(factory, 90, 100, 120));
         System.out.println(predict(factory, 20, 30, 50));
-        System.out.println("lookup two elements in " + (System.currentTimeMillis() - before) + "ms");
+
+        System.out.println("> " + System.currentTimeMillis());
+        System.out.println("lookup two elements in " + (System.currentTimeMillis() - before) + " ms");
     }
 
     public static double predict(DefaultEvaluationFactory factory, int begin, int end, int futur) {
@@ -41,12 +45,13 @@ public class SimpleFullReason {
         for (int i = end; i > begin; i--) {
 
             factory.clearCache();
+            datastore.sync();
+//            datastore = new LevelDbDataStore("/Users/thomas/dev/kmf-samples/smartgrid/smartgrid.tests/target/tempFullSampling");
+//            factory.setDatastore(datastore);
 
             JSONModelLoader loader = new JSONModelLoader();
-            long before = System.currentTimeMillis();
             String sample = datastore.get(SEGMENT, new TimePoint(Long.valueOf(i), 0).toString());
             SmartGrid model = (SmartGrid) loader.loadModelFromString(sample).get(0);
-            System.out.println(System.currentTimeMillis() - before);
 
             SmartMeter meter = model.findSmartmetersByID("meter_5");
             int nbElem = 0;
