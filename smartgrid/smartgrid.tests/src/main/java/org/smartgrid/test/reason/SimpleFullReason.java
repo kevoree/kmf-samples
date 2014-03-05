@@ -40,6 +40,7 @@ public class SimpleFullReason {
         System.out.println("lookup two elements in " + (System.currentTimeMillis() - before) + " ms");
     }
 
+
     public static double predict(DefaultEvaluationFactory factory, int begin, int end, int futur) {
         SimpleRegression regression = new SimpleRegression();
         for (int i = end; i > begin; i--) {
