@@ -35,9 +35,9 @@
         <module>cloudml/org.kevoree.modeling.sample.cloudml.kt</module>
       <!--  <module>cloudml/org.kevoree.modeling.sample.cloudml.emf</module> -->
 		
-		
+	  <!--
         <module>multiecore</module>
-		
+		-->
 		
 		<module>tinycloud/cloud.kt</module>
 		<module>tinycloud/cloud.js</module>
