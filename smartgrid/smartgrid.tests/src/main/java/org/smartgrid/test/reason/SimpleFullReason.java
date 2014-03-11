@@ -10,12 +10,15 @@ import org.kevoree.modeling.api.time.RelativeTimeStrategy;
 import org.kevoree.modeling.api.time.TimePoint;
 import org.kevoree.modeling.datastores.leveldb.LevelDbDataStore;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by duke on 3/5/14.
  */
 public class SimpleFullReason {
 
-    private static DataStore datastore = new LevelDbDataStore("/Users/thomas/dev/kmf-samples/smartgrid/smartgrid.tests/target/tempFullSampling");
+    private static DataStore datastore = new LevelDbDataStore("/Users/duke/Documents/dev/kevoreeTeam/kmf-samples/smartgrid/smartgrid.tests/target/tempFullSampling");
     private static String SEGMENT = "default_segment";
 
     public static void main(String[] args) {
@@ -29,31 +32,60 @@ public class SimpleFullReason {
             factory.clearCache();
         }
         factory.clearCache();
-        //datastore.dump();
-        long before = System.currentTimeMillis();
-        System.out.println("> " + before);
 
-        System.out.println(predict(factory, 90, 100, 120));
-        System.out.println(predict(factory, 20, 30, 50));
+        factory.clearCache();
+        int nbTry = 1;
 
-        System.out.println("> " + System.currentTimeMillis());
-        System.out.println("lookup two elements in " + (System.currentTimeMillis() - before) + " ms");
+        System.out.println("FullSampling benchmark =========== ");
+
+        long before, after;
+        before = System.nanoTime();
+        for (int i = 0; i < nbTry; i++) {
+            factory.clearCache();
+            predict(factory, 60, 90, 120);
+        }
+        after = System.nanoTime();
+        System.out.println("FullSampling Short Deep Prediction (SDP)=" + computTimeMs(before, after, nbTry) + "ms");
+
+        before = System.nanoTime();
+        for (int i = 0; i < nbTry; i++) {
+            factory.clearCache();
+            predict(factory, 200, 5000, 6000);
+        }
+        after = System.nanoTime();
+        System.out.println("FullSampling Long Deep Prediction (LDP)=" + computTimeMs(before, after, nbTry) + "ms");
+
+        before = System.nanoTime();
+        for (int i = 0; i < nbTry; i++) {
+            factory.clearCache();
+            predictWidth(factory, 60, 90, 120);
+        }
+        after = System.nanoTime();
+        System.out.println("FullSampling Short Wide Prediction (SWP)=" + computTimeMs(before, after, nbTry) + "ms");
+
+        before = System.nanoTime();
+        for (int i = 0; i < nbTry; i++) {
+            factory.clearCache();
+            predictWidth(factory, 200, 5000, 6000); //long prediction
+        }
+        after = System.nanoTime();
+        System.out.println("FullSampling Long Wide Prediction (LWP)=" + computTimeMs(before, after, nbTry) + "ms");
+
+    }
+
+    public static double computTimeMs(Long before, Long after, int nbTry) {
+        return (((after - before) / nbTry) / 1000000d);
     }
 
 
     public static double predict(DefaultEvaluationFactory factory, int begin, int end, int futur) {
         SimpleRegression regression = new SimpleRegression();
         for (int i = end; i > begin; i--) {
-
             factory.clearCache();
             datastore.sync();
-//            datastore = new LevelDbDataStore("/Users/thomas/dev/kmf-samples/smartgrid/smartgrid.tests/target/tempFullSampling");
-//            factory.setDatastore(datastore);
-
             JSONModelLoader loader = new JSONModelLoader();
             String sample = datastore.get(SEGMENT, new TimePoint(Long.valueOf(i), 0).toString());
             SmartGrid model = (SmartGrid) loader.loadModelFromString(sample).get(0);
-
             SmartMeter meter = model.findSmartmetersByID("meter_5");
             int nbElem = 0;
             int sum = 0;
@@ -74,5 +106,37 @@ public class SimpleFullReason {
         return regression.predict(futur);
     }
 
+    public static double predictWidth(DefaultEvaluationFactory factory, int begin, int end, int futur) {
+        SimpleRegression regression = new SimpleRegression();
+        for (int i = end; i > begin; i--) {
+            factory.clearCache();
+            datastore.sync();
+            JSONModelLoader loader = new JSONModelLoader();
+            String sample = datastore.get(SEGMENT, new TimePoint(Long.valueOf(i), 0).toString());
+            SmartGrid model = (SmartGrid) loader.loadModelFromString(sample).get(0);
+            SmartMeter meter = model.findSmartmetersByID("meter_5");
+            List<Long> wideCollection = new ArrayList<Long>();
+            deepWidthCollectConso(wideCollection, 20, meter);
+            int nb = 0;
+            Long total = 0l;
+            for (Long wc : wideCollection) {
+                total = total + wc;
+                nb = nb + 1;
+                //perhaps do a mean here
+            }
+            regression.addData(i, total / nb);
+        }
+        return regression.predict(futur);
+    }
+
+    public static void deepWidthCollectConso(List<Long> result, int range, SmartMeter origin) {
+        result.add(origin.getElectricLoad());
+        if (range > 0) {
+            int newrange = range - 1;
+            for (SmartMeter meter : origin.getNeighbors()) {
+                deepWidthCollectConso(result, newrange, meter);
+            }
+        }
+    }
 
 }
