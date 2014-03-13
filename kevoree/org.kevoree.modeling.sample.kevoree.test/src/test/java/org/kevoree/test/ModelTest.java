@@ -108,6 +108,7 @@ public class ModelTest {
         node.addComponents(inst);
 
         final Port port = factory.createPort();
+        port.setName(ptr.getName());
         inst.addProvided(port);
         port.setPortTypeRef(ptr);
 
@@ -142,6 +143,7 @@ public class ModelTest {
         node.addComponents(inst);
 
         final Port port = factory.createPort();
+        port.setName(ptr.getName());
         inst.addProvided(port);
         port.setPortTypeRef(ptr);
 
