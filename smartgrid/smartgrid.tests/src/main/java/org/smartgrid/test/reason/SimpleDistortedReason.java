@@ -66,6 +66,7 @@ public class SimpleDistortedReason {
         }
         after = System.nanoTime();
         System.out.println("Distorted Long Wide Prediction (LWP)=" + computTimeMs(before,after,nbTry) + "ms");
+
     }
 
     public static double computTimeMs(Long before,Long after,int nbTry){

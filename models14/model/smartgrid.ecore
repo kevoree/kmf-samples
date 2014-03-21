@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="SmartGrid" nsURI="SmartGrid" nsPrefix="SmartGrid">
+  <eClassifiers xsi:type="ecore:EClass" name="Concentrator" eSuperTypes="#//Entity"/>
+  <eClassifiers xsi:type="ecore:EClass" name="SmartMeter" eSuperTypes="#//Entity #//Meter">
+    <eOperations name="isRepeater" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="maxAllowedPower" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="electricityActive" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="highPowerCurrentActive"
+        lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="distance2concentrator"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="hops2concentrator" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="duration2Read" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PLC" eSuperTypes="#//WiredCommunicationMedia">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="lmax" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="electricalFeeding" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="electricitySegments" upperBound="-1"
+        eType="#//ElectricitySegment"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="WirelessCommunicationMedia" abstract="true"
+      eSuperTypes="#//CommunicationMedia"/>
+  <eClassifiers xsi:type="ecore:EClass" name="GasMeter" eSuperTypes="#//Entity #//Meter"/>
+  <eClassifiers xsi:type="ecore:EClass" name="WaterMeter" eSuperTypes="#//Entity #//Meter"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Entity" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="children" eType="#//Entity" containment="true" upperBound="-1"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="registeredBy" eType="#//Entity"
+        eOpposite="#//Entity/registered"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="registered" upperBound="-1"
+        eType="#//Entity" eOpposite="#//Entity/registeredBy"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="communicationMedias" upperBound="-1"
+        eType="#//CommunicationMedia" eOpposite="#//CommunicationMedia/entities"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="location" eType="#//GpsPoint"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="consumption" eType="#//MeasuredData" containment="true" />
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="serialNumber" lowerBound="1" iD="true"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString" defaultValueLiteral="&quot;&quot;"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="communicationActive" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="false"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SmartGridModel">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="customers" upperBound="-1"
+        eType="#//Customer" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="communicationMedias" upperBound="-1"
+        eType="#//CommunicationMedia" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="electricalSegments" upperBound="-1"
+        eType="#//ElectricitySegment" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="entities" upperBound="-1"
+        eType="#//Entity" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Customer" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="meter" upperBound="-1"
+        eType="#//Meter" eOpposite="#//Meter/customer"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Meter" abstract="true" eSuperTypes="#//Entity">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="customer" eType="#//Customer"
+        eOpposite="#//Customer/meter"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CommunicationMedia" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="payloadPerSecond" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong" defaultValueLiteral="0"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="entities" upperBound="-1"
+        eType="#//Entity" eOpposite="#//Entity/communicationMedias"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        iD="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GpsPoint">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="latitude" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="longitude" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="address" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="WiredCommunicationMedia" abstract="true"
+      eSuperTypes="#//CommunicationMedia">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="material" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="size" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="remark" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MeasuredData">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="measuringTime" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="consumption" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="production" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="voltage" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="current" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="reportingTime" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ElectricitySegment">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="electricalLoad" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="startPoint" eType="#//GpsPoint"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="endPoint" eType="#//GpsPoint"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="OpticalFiber" eSuperTypes="#//WiredCommunicationMedia">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="startPoint" eType="#//GpsPoint"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="endPoint" eType="#//GpsPoint"
+        containment="true"/>
+  </eClassifiers>
+</ecore:EPackage>
