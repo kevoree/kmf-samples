@@ -50,9 +50,11 @@ public class TraceSetGeneratorTest {
 
     private boolean lookupForTrace(List<ModelTrace> traces, String attName) {
         for (ModelTrace trace : traces) {
-              if(trace.toString().contains("\"refname\" : \""+attName+"\"")){
+              if(trace.toString().contains("\"r\":\""+attName+"\"")){
                   return true;
-              }
+              } /*else {
+                  System.out.println("not/"+trace.toString());
+              }*/
         }
         return false;
     }
