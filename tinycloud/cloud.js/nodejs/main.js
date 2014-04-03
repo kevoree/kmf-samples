@@ -10,6 +10,7 @@ var ActionType = model.org.kevoree.modeling.api.util.ActionType;
 
 //Just define a deep cloud model
 var cloud = factory.createCloud();
+
 for(var nodeI=0;nodeI<5;nodeI++){
     var newNode = factory.createNode();
     newNode.id = "Node_"+nodeI;
@@ -18,12 +19,16 @@ for(var nodeI=0;nodeI<5;nodeI++){
        var newSoft = factory.createSoftware();
        newSoft.name = "Soft_"+nodeI+"_"+softI;
        newNode.addSoftwares(newSoft);
+	   /*
        newSoft.data.add("Yop");
        newSoft.data.add("Yop2");
         newSoft.data.add("Yop3");
-        newSoft.data.add("Yo p3");
+        newSoft.data.add("Yo p3");*/
     }
 }
+
+console.log(cloud.nodes.get(0))
+
 
 //save in JSON
 var savedModel = saver.serialize(cloud);
