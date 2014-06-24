@@ -38,6 +38,7 @@
                         <id>ModelGen</id>
                         <goals>
                             <goal>generate</goal>
+                            <goal>sync</goal>
                         </goals>
                         <configuration>
                             <ecore>${metamodel.ecore}</ecore>

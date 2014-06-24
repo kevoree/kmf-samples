@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xsd:schema xmlns:cloud="http://cloud/1.0" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ecore:nsPrefix="cloud" ecore:package="cloud" targetNamespace="http://cloud/1.0">
+  <xsd:import namespace="http://www.eclipse.org/emf/2002/Ecore" schemaLocation="http://www.eclipse.org/emf/2002/Ecore"/>
+  <xsd:element ecore:ignore="true" name="Cloud" type="cloud:Cloud"/>
+  <xsd:element ecore:ignore="true" name="Node" type="cloud:Node"/>
+  <xsd:element ecore:ignore="true" name="Software" type="cloud:Software"/>
+  <xsd:complexType name="Cloud">
+    <xsd:sequence>
+      <xsd:element ecore:resolveProxies="true" maxOccurs="unbounded" minOccurs="0" name="nodes" type="cloud:Node"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="Node">
+    <xsd:sequence>
+      <xsd:element ecore:resolveProxies="true" maxOccurs="unbounded" minOccurs="0" name="softwares" type="cloud:Software"/>
+    </xsd:sequence>
+    <xsd:attribute ecore:id="true" name="id" type="ecore:EString"/>
+  </xsd:complexType>
+  <xsd:complexType name="Software">
+    <xsd:sequence>
+      <xsd:element ecore:unique="true" maxOccurs="unbounded" minOccurs="0" name="data" nillable="true" type="ecore:EString"/>
+    </xsd:sequence>
+    <xsd:attribute ecore:id="true" name="name" type="ecore:EString"/>
+  </xsd:complexType>
+</xsd:schema>
