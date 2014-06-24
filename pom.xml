@@ -9,47 +9,37 @@
     <version>1.0.0-SNAPSHOT</version>
 
     <properties>
-		<kmf.version>1.10.4</kmf.version>
+		<kmf.version>1.10.5-SNAPSHOT</kmf.version>
         <emf.version>2.7.0</emf.version>
     </properties>
 
 	<modules>
+		
+
+		<module>tinycloud/cloud.kt</module>
+		<module>tinycloud/cloud.js</module>
+	
 		<module>fsm/org.kevoree.modeling.sample.fsm.kt</module>
-		<!--<module>fsm/org.kevoree.modeling.sample.fsm.emf</module>-->
 		<module>fsm/org.kevoree.modeling.sample.fsm.kt.events</module>
         <module>fsm/org.kevoree.modeling.sample.fsm.test</module>
-
+		
         <module>opposite/org.kevoree.modeling.sample.opposite</module>
-
+		
 		<module>kevoree/org.kevoree.modeling.sample.kevoree.kt</module>
 		<module>kevoree/org.kevoree.modeling.sample.kevoree.test</module>
 		
-		<!--<module>kevoree/org.kevoree.modeling.sample.kevoree.emf</module>-->
-		
-		<module>thingml/org.kevoree.modeling.sample.thingml.kt</module>
-		<!--<module>thingml/org.kevoree.modeling.sample.thingml.emf</module>-->
-		<module>diva/org.kevoree.modeling.sample.diva.kt</module>
-		<!--<module>diva/org.kevoree.modeling.sample.diva.emf</module>-->
-        <module>cloudml/org.kevoree.modeling.sample.cloudml.kt</module>
-      <!--  <module>cloudml/org.kevoree.modeling.sample.cloudml.emf</module> -->
-		
-	  <!--
-        <module>multiecore</module>
-		-->
-		
-		<module>tinycloud/cloud.kt</module>
-		
-		<!--
-		<module>kermeta/org.kevoree.modeling.sample.kermeta.kt</module>
-		<module>kermeta/org.kevoree.modeling.sample.kermeta.js</module>
-		-->
 		<module>ecore/org.kevoree.modeling.sample.ecore.kt</module>
-		
-		
-		<module>tinycloud/cloud.js</module>
 		<module>ecore/org.kevoree.modeling.sample.ecore.js</module>
+		
 		<module>kevoree/org.kevoree.modeling.sample.kevoree.js</module>
 		<module>kevoree/org.kevoree.modeling.sample.kevoree.event.js</module>
+		
+		<module>thingml/org.kevoree.modeling.sample.thingml.kt</module>
+		<module>diva/org.kevoree.modeling.sample.diva.kt</module>
+        <module>cloudml/org.kevoree.modeling.sample.cloudml.kt</module>
+
+			<module>smartgrid/smartgrid.kt</module>
+			<module>smartgrid/smartgrid.tests</module>
 
 	</modules>
 
