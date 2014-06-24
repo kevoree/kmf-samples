@@ -4,7 +4,6 @@ import org.apache.commons.math3.stat.regression.SimpleRegression;
 import org.evaluation.SmartMeter;
 import org.evaluation.impl.DefaultEvaluationFactory;
 import org.kevoree.modeling.api.persistence.DataStore;
-import org.kevoree.modeling.api.time.RelativeTimeStrategy;
 import org.kevoree.modeling.api.time.TimePoint;
 import org.kevoree.modeling.datastores.leveldb.LevelDbDataStore;
 
@@ -75,7 +74,6 @@ public class SimpleDistortedReason {
 
     public static double predict(DefaultEvaluationFactory factory, int begin, int end, int futur) {
         SimpleRegression regression = new SimpleRegression();
-        factory.setRelativityStrategy(RelativeTimeStrategy.ABSOLUTE);
         for (int i = end; i > begin; i--) {
             factory.setRelativeTime(new TimePoint(i, 0));
             SmartMeter meter = (SmartMeter) factory.lookup("smartmeters[meter_5]");
@@ -100,7 +98,6 @@ public class SimpleDistortedReason {
 
     public static double predictWidth(DefaultEvaluationFactory factory, int begin, int end, int futur) {
         SimpleRegression regression = new SimpleRegression();
-        factory.setRelativityStrategy(RelativeTimeStrategy.ABSOLUTE);
         for (int i = end; i > begin; i--) {
             factory.setRelativeTime(new TimePoint(i, 0));
             SmartMeter meter = (SmartMeter) factory.lookup("smartmeters[meter_5]");

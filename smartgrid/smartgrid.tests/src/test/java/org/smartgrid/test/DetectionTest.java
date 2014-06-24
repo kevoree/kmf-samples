@@ -7,7 +7,6 @@ import org.evaluation.impl.DefaultEvaluationFactory;
 import org.evaluation.serializer.JSONModelSerializer;
 import org.junit.Test;
 import org.kevoree.modeling.api.persistence.DataStore;
-import org.kevoree.modeling.api.time.RelativeTimeStrategy;
 import org.kevoree.modeling.api.time.TimePoint;
 import org.kevoree.modeling.datastores.leveldb.LevelDbDataStore;
 
@@ -64,8 +63,8 @@ public class DetectionTest {
                 for (SmartMeter meter : customer.getMeters()) {
                     meter.setElectricLoad(new Long(i));
                     //meter.setNow(TimePoint.object$.create(String.valueOf(i)));
-                    meter = (SmartMeter) meter.shiftOffset(1l);
-                    factory.persist(meter);
+                    //meter = (SmartMeter) meter.shift(meter.getNow().shift(1));
+                    //factory.persist(meter);
                     //factory.clearCache();
                 }
             }
@@ -74,7 +73,6 @@ public class DetectionTest {
         factory.commit();
         factory.clearCache();
 
-        factory.setRelativityStrategy(RelativeTimeStrategy.LATEST);
         SmartGrid lookupGrid = (SmartGrid) factory.lookup("/");
         JSONModelSerializer saver = new JSONModelSerializer();
         saver.serializeToStream(lookupGrid, System.err);

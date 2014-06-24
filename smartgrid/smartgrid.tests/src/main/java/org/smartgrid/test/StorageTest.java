@@ -60,8 +60,8 @@ public class StorageTest {
 
 
         System.out.println(meter.path());
-
-        SmartMeter meter2 = (SmartMeter) meter.shiftOffset(1);
+          /*
+        SmartMeter meter2 = (SmartMeter) meter.shift(meter.getNow().shift(1));
         System.out.println(meter2);
         meter2.setElectricLoad(1l);
         factory.persist(meter2);
@@ -73,7 +73,7 @@ public class StorageTest {
             for (String key : datastore.getSegmentKeys(segment)) {
                 System.out.println(key + "->" + datastore.get(segment, key));
             }
-        }
+        } */
 
 
     }

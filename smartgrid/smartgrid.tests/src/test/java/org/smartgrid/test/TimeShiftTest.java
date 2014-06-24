@@ -46,7 +46,7 @@ public class TimeShiftTest {
         factory.persist(grid);
         factory.commit();
 
-        SmartMeter meter2 = (SmartMeter) meter.shiftOffset(1);
+        SmartMeter meter2 =null;// (SmartMeter) meter.shift(meter.getNow().shift(1));
         assertNotNull(meter2);
         assertEquals(meter.path(), meter2.path());
         assertNotEquals(meter.getNow(), meter2.getNow());
@@ -62,13 +62,13 @@ public class TimeShiftTest {
                 System.out.println(key + "->" + datastore.get(segment, key));
             }
         }
-        SmartMeter meter2_l = (SmartMeter) factory.lookupFromTime(meter2.path(), meter2.getNow());
+        SmartMeter meter2_l =null;// (SmartMeter) factory.lookupFromTime(meter2.path(), meter2.getNow());
         assertNotNull(meter2_l);
         assertEquals(meter.path(), meter2_l.path());
         assertNotEquals(meter.getNow(), meter2_l.getNow());
         assertEquals(meter.getName(), meter2_l.getName());
         assertNotEquals(meter2, meter2_l);
-
+               /*
 
         SmartMeter meterPrevious = (SmartMeter) meter2.previous();
         assertEquals(meterPrevious.getNow(), new TimePoint(0, 0));
@@ -77,7 +77,7 @@ public class TimeShiftTest {
 
 
         Helper.delete(baseDir);
-
+        */
 
     }
 

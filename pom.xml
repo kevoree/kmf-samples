@@ -39,8 +39,9 @@
         <module>cloudml/org.kevoree.modeling.sample.cloudml.kt</module>
 
 			<module>smartgrid/smartgrid.kt</module>
+			<!--
 			<module>smartgrid/smartgrid.tests</module>
-
+-->
 	</modules>
 
     <repositories>

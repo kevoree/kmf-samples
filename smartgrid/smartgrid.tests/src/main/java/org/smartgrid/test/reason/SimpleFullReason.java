@@ -6,7 +6,6 @@ import org.evaluation.SmartMeter;
 import org.evaluation.impl.DefaultEvaluationFactory;
 import org.evaluation.loader.JSONModelLoader;
 import org.kevoree.modeling.api.persistence.DataStore;
-import org.kevoree.modeling.api.time.RelativeTimeStrategy;
 import org.kevoree.modeling.api.time.TimePoint;
 import org.kevoree.modeling.datastores.leveldb.LevelDbDataStore;
 
