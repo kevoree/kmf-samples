@@ -33,7 +33,7 @@ import org.kevoree.modeling.api.persistence.MemoryDataStore
 class PersistentOppositeTest {
 
     val factory = DefaultTestFactory()
-/*
+
     Test fun optionalSingleA_optionalSingleB_Test() {
 
         factory.datastore = MemoryDataStore()
@@ -43,7 +43,7 @@ class PersistentOppositeTest {
 
         val _b = factory.createB()
         _container.addBees(_b);
-        val bPath = _b.path()!!
+        val bPath = _b.path()
 
         factory.commit();
 
@@ -51,7 +51,7 @@ class PersistentOppositeTest {
         var b = factory.lookup(bPath)!! as B
         var a = factory.createA()
         b.optionalSingleA_optionalSingleB = a
-        var aPath = a.path()!!
+        var aPath = a.path()
 
         factory.commit();
         a = factory.lookup(aPath)!! as A
@@ -82,7 +82,7 @@ class PersistentOppositeTest {
         a.optionalSingleA_optionalSingleB = b
         assert(b.optionalSingleA_optionalSingleB != null && b.optionalSingleA_optionalSingleB== a)
         assert(a.eContainer() == b)
-        aPath = a.path()!!
+        aPath = a.path()
         factory.commit();
         a = factory.lookup(aPath)!! as A
         println("LookupFactory" + factory)
@@ -649,6 +649,5 @@ class PersistentOppositeTest {
         b.removeAllStarList()
         assert(b.starList.size == 0, "Size:" + a.starList.size)
     }
-*/
 */
 }
