@@ -4,12 +4,20 @@
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="kmf"
     nsURI="http://kmf" nsPrefix="kmf">
   <eSubpackages name="test" nsURI="http://kmf.test" nsPrefix="kmf.test">
-    <eClassifiers xsi:type="ecore:EClass" name="Container">
-      <eStructuralFeatures xsi:type="ecore:EReference" name="bees" upperBound="-1"
-          eType="#//test/B" containment="true"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="dataTypes" upperBound="-1"
-          eType="#//test/DataTypesTest" containment="true"/>
-    </eClassifiers>
+     <eClassifiers xsi:type="ecore:EClass" name="Container">
+          <eStructuralFeatures xsi:type="ecore:EReference" name="bees" upperBound="-1"
+              eType="#//test/B" containment="true"/>
+          <eStructuralFeatures xsi:type="ecore:EReference" name="aees" upperBound="-1"
+              eType="#//test/A" containment="true"/>
+              <eStructuralFeatures xsi:type="ecore:EReference" name="cees" upperBound="-1"
+                        eType="#//test/C" containment="true"/>
+          <eStructuralFeatures xsi:type="ecore:EReference" name="dataTypes" upperBound="-1"
+              eType="#//test/DataTypesTest" containment="true"/>
+        </eClassifiers>
+         <eClassifiers xsi:type="ecore:EClass" name="C">
+         <eStructuralFeatures xsi:type="ecore:EReference" name="bees"
+                   eType="#//test/B" upperBound="-1" containment="true"/>
+         </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="A">
       <eStructuralFeatures xsi:type="ecore:EReference" name="optionalSingleA_optionalSingleB"
           eType="#//test/B" eOpposite="#//test/B/optionalSingleA_optionalSingleB"/>

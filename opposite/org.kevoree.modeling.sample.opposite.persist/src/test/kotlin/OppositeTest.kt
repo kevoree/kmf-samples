@@ -32,7 +32,7 @@ import kmf.test.B
 class OppositeTest {
 
     val factory = DefaultTestFactory()
-    
+    /*
     Test fun optionalSingleA_optionalSingleB_Test() {
         //val container = TestFactory.createContainer
         val b = factory.createB()
@@ -609,5 +609,5 @@ class OppositeTest {
         b.removeAllStarList()
         assert(b.starList.size == 0, "Size:" + a.starList.size)
     }
-
+*/
 }

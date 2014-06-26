@@ -21,6 +21,7 @@ import kmf.test.TestFactory
 import kmf.test.impl.DefaultTestFactory
 import kmf.test.A
 import kmf.test.B
+import org.kevoree.modeling.api.persistence.MemoryDataStore
 
 /*
 * Author : Gregory Nain (developer.name@uni.lu)
@@ -29,48 +30,87 @@ import kmf.test.B
 * All rights reserved
 */
 
-class OppositeTest {
+class PersistentOppositeTest {
 
     val factory = DefaultTestFactory()
-    /*
+/*
     Test fun optionalSingleA_optionalSingleB_Test() {
-        //val container = TestFactory.createContainer
-        val b = factory.createB()
-        val a = factory.createA()
+
+        factory.datastore = MemoryDataStore()
+
+        val _container = factory.createContainer()
+        factory.setRoot(_container)
+
+        val _b = factory.createB()
+        _container.addBees(_b);
+        val bPath = _b.path()!!
+
+        factory.commit();
 
         //Set a in B
+        var b = factory.lookup(bPath)!! as B
+        var a = factory.createA()
         b.optionalSingleA_optionalSingleB = a
+        var aPath = a.path()!!
+
+        factory.commit();
+        a = factory.lookup(aPath)!! as A
+        b = factory.lookup(bPath)!! as B
+
         assert(a.optionalSingleA_optionalSingleB != null && a.optionalSingleA_optionalSingleB == b)
         assert(a.eContainer() == b, "eContainer:" + a.eContainer().javaClass)
 
         b.optionalSingleA_optionalSingleB = a
+        factory.commit();
+        a = factory.lookup(aPath)!! as A
+        b = factory.lookup(bPath)!! as B
         assert(a.optionalSingleA_optionalSingleB != null && a.optionalSingleA_optionalSingleB == b)
         assert(a.eContainer() == b, "eContainer:" + a.eContainer().javaClass)
 
 
         //Remove A from B
         b.optionalSingleA_optionalSingleB = null
-        assert(a.optionalSingleA_optionalSingleB == null)
         assert(a.eContainer() == null, "eContainer:" + a.eContainer().toString())
 
+        factory.commit();
+        b = factory.lookup(bPath)!! as B
+        assert(b.optionalSingleA_optionalSingleB == null)
+        assert(factory.lookup(aPath) == null, factory.lookup(aPath).toString())
+
         //Set B in A
+        a = factory.createA()
         a.optionalSingleA_optionalSingleB = b
         assert(b.optionalSingleA_optionalSingleB != null && b.optionalSingleA_optionalSingleB== a)
+        assert(a.eContainer() == b)
+        aPath = a.path()!!
+        factory.commit();
+        a = factory.lookup(aPath)!! as A
+        println("LookupFactory" + factory)
+        println("A Path->" + aPath);
+        assert(a != null, "A Path: " + aPath);
+        b = factory.lookup(bPath)!! as B
+        assert(b.optionalSingleA_optionalSingleB != null)
+        assert(b.optionalSingleA_optionalSingleB != null && b.optionalSingleA_optionalSingleB == a)
         assert(a.eContainer() == b)
 
         //Set B in A
         a.optionalSingleA_optionalSingleB = b
+        factory.commit();
+        a = factory.lookup(aPath)!! as A
+        b = factory.lookup(bPath)!! as B
         assert(b.optionalSingleA_optionalSingleB != null && b.optionalSingleA_optionalSingleB== a)
         assert(a.eContainer() == b)
 
         //Remove B from A
         a.optionalSingleA_optionalSingleB = null
+        factory.commit();
+        b = factory.lookup(bPath)!! as B
         assert(b.optionalSingleA_optionalSingleB == null)
-        assert(a.eContainer() == null)
+        assert(factory.lookup(aPath) == null, factory.lookup(aPath).toString())
 
     }
 
-
+/*
     Test fun mandatorySingleA_mandatorySingleB_Test() {
         //val container = TestFactory.createContainer
         val b = factory.createB()
@@ -609,5 +649,6 @@ class OppositeTest {
         b.removeAllStarList()
         assert(b.starList.size == 0, "Size:" + a.starList.size)
     }
-    */
+*/
+*/
 }
