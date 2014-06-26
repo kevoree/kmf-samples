@@ -55,7 +55,7 @@
                         <configuration>
                             <ecore>${metamodel.ecore}</ecore>
                             <packagePrefix>org</packagePrefix>
-                            <clearOutput>false</clearOutput>
+                            <events>true</events>
                             <js>true</js>
                         </configuration>
                     </execution>

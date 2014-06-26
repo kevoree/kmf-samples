@@ -24,6 +24,11 @@
             <artifactId>org.kevoree.modeling.microframework</artifactId>
             <version>${kmf.version}</version>
         </dependency>
+        <dependency>
+            <groupId>fr.inria.jfilter</groupId>
+            <artifactId>jfilter-library</artifactId>
+            <version>1.3</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -42,6 +47,7 @@
                         </goals>
                         <configuration>
                             <ecore>${metamodel.ecore}</ecore>
+                            <selector>true</selector>
                             <packagePrefix>org</packagePrefix>
                             <persistence>true</persistence>
                             <timeAware>true</timeAware>
