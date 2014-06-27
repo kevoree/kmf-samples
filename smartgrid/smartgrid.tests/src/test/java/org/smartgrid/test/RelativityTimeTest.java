@@ -18,7 +18,7 @@ import static org.junit.Assert.*;
  */
 public class RelativityTimeTest {
 
-    @Test
+    //@Test
     public void test() throws IOException {
         String dir = "tempStorage" + this.getClass().getSimpleName();
         File baseDir = new File(dir);

@@ -29,6 +29,7 @@ public class Tester {
 
         TimeView<EvaluationFactory> tp0 = factory.time("0");
         SmartGrid grid = tp0.factory().createSmartGrid().withDescription("Hello");
+        factory.setRoot(grid);
         SmartMeter meter0 = tp0.factory().createSmartMeter().withName("m0");
         SmartMeter meter1 = tp0.factory().createSmartMeter().withName("m1");
         grid.addSmartmeters(meter0);
@@ -41,31 +42,36 @@ public class Tester {
 
         TimeView tp1 = tp0.time("1");
         SmartGrid grid_t1 = (SmartGrid) tp1.lookup("/");
-        System.out.println("GridSize=" + grid_t1.getSmartmeters().size());
+        System.out.println(grid_t1.path()+"-"+"GridSize=" + grid_t1.getSmartmeters().size());
 
         // grid_t1.setDescription("LastDescription");
+
+        System.out.print("deleting m1...");
         grid_t1.findSmartmetersByID("m1").delete();
+        System.out.println("done");
+
+
 
         tp1.commit();
 
 
         TimeView tp2 = tp0.time("2");
         SmartGrid grid_t2 = (SmartGrid) tp2.lookup("/");
-        System.out.println("GridSize=" + grid_t2.getSmartmeters().size());
+        System.out.println(grid_t1.path()+"-"+"GridSize=" + grid_t2.getSmartmeters().size());
         grid_t2.findSmartmetersByID("m0").setElectricLoad(3l);
 
         tp2.commit();
 
         TimeView tp3 = tp0.time("3");
         SmartGrid grid_t3 = (SmartGrid) tp3.lookup("/");
-        System.out.println("GridSize=" + grid_t3.getSmartmeters().size());
+        System.out.println(grid_t1.path()+"-"+"GridSize=" + grid_t3.getSmartmeters().size());
         grid_t3.findSmartmetersByID("m0").delete();
 
         tp3.commit();
 
         TimeView tp4 = tp0.time("4");
         SmartGrid grid_t4 = (SmartGrid) tp4.lookup("/");
-        System.out.println("GridSize=" + grid_t4.getSmartmeters().size());
+        System.out.println(grid_t1.path()+"-"+"GridSize=" + grid_t4.getSmartmeters().size());
 
         for (int i = 0; i <= 5; i++) {
             TimeView tvi = factory.time(i + "");
@@ -90,7 +96,7 @@ public class Tester {
         }
 
 
-        System.out.println("GridSize=" + ((SmartGrid)tp0.time("3").lookup("/")).getSmartmeters().size());
+        System.out.println(grid_t1.path()+"-"+"GridSize=" + ((SmartGrid)tp0.time("3").lookup("/")).getSmartmeters().size());
 
 
         /*

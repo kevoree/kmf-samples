@@ -21,7 +21,7 @@ public class DetectionTest {
     private int numberOfCustomer = 100;
     private int numberOfSteps = 100;
 
-    @Test
+    //@Test
     public void test() throws IOException {
         String dir = "tempStorage" + this.getClass().getSimpleName();
         File baseDir = new File(dir);

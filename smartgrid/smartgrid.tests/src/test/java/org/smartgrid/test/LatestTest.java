@@ -19,7 +19,7 @@ import static org.junit.Assert.assertNotNull;
  */
 public class LatestTest {
 
-    @Test
+    //@Test
     public void test() throws IOException {
         String dir = "tempStorage"+this.getClass().getSimpleName();
         File baseDir = new File(dir);
