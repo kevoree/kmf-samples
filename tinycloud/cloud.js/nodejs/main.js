@@ -1,11 +1,18 @@
-var model = require('../target/js/org.kevoree.modeling.sample.cloud.js.merged.js');
+var model = require('../target/classes/org.kevoree.modeling.sample.cloud.js.merged.js');
 
-var saver = new model.org.cloud.serializer.JSONModelSerializer();
+var factory = new model.org.cloud.impl.DefaultCloudFactory();
+var saver = factory.createJSONSerializer();
+
+console.log(factory);
+
 var loader = new model.org.cloud.loader.JSONModelLoader();
+
+console.log(loader);
+
+
 var cloner = new model.org.cloud.cloner.DefaultModelCloner();
 var compare = new model.org.cloud.compare.DefaultModelCompare();
 var event2trace = new model.org.kevoree.modeling.api.trace.Event2Trace(compare);
-var factory = new model.org.cloud.impl.DefaultCloudFactory();
 var ActionType = model.org.kevoree.modeling.api.util.ActionType;
 
 //Just define a deep cloud model

@@ -9,7 +9,7 @@
     <version>1.0.0-SNAPSHOT</version>
 
     <properties>
-		<kmf.version>1.10.5-SNAPSHOT</kmf.version>
+		<kmf.version>2.1.1-SNAPSHOT</kmf.version>
         <emf.version>2.7.0</emf.version>
     </properties>
 
@@ -73,7 +73,7 @@
             <plugin>
                 <artifactId>kotlin-maven-plugin</artifactId>
                 <groupId>org.jetbrains.kotlin</groupId>
-                <version>0.7.271</version>
+                <version>0.8.11</version>
                 <executions>
                     <execution>
                         <id>test-compile</id>

@@ -1,4 +1,4 @@
-var model = require('../target/js/org.kevoree.modeling.sample.cloud.js.merged.js');
+var model = require('../target/classes/org.kevoree.modeling.sample.cloud.js.merged.js');
 
 var saver = new model.org.cloud.serializer.JSONModelSerializer();
 var loader = new model.org.cloud.loader.JSONModelLoader();
