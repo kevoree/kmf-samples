@@ -1,10 +1,12 @@
 package org.ecore.tester;
 
 
-import ecore.loader.XMIModelLoader;
-import ecore.serializer.XMIModelSerializer;
+import ecore.factory.DefaultEcoreFactory;
+import ecore.factory.EcoreFactory;
 import org.kevoree.modeling.api.KMFContainer;
 import org.kevoree.modeling.api.xmi.ResourceSet;
+import org.kevoree.modeling.api.xmi.XMIModelLoader;
+import org.kevoree.modeling.api.xmi.XMIModelSerializer;
 
 import java.util.List;
 
@@ -18,7 +20,8 @@ public class Tester {
 
     public static void main(String[] args) {
 
-        XMIModelLoader loader = new XMIModelLoader();
+        EcoreFactory factory = new DefaultEcoreFactory();
+        XMIModelLoader loader = new XMIModelLoader(factory);
         loader.activateSupportForNamedElements(true);
         loader.setResourceSet(new ResourceSet());
 
