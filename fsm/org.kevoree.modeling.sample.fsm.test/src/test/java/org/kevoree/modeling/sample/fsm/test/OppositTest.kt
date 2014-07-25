@@ -19,8 +19,8 @@ package org.kevoree.test
 
 import org.junit.Test
 import org.fsmsample.FSM
-import org.fsmsample.impl.DefaultFsmSampleFactory
 import org.fsmsample.State
+import org.fsmsample.factory.DefaultFsmSampleFactory
 
 
 /**

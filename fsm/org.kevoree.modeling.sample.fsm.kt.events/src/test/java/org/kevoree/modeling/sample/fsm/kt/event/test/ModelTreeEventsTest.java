@@ -4,10 +4,10 @@ package org.kevoree.modeling.sample.fsm.kt.event.test;/*
 */
 
 import org.fsmsample.FSM;
-import org.fsmsample.FsmSampleFactory;
 import org.fsmsample.State;
 import org.fsmsample.Transition;
-import org.fsmsample.impl.DefaultFsmSampleFactory;
+import org.fsmsample.factory.DefaultFsmSampleFactory;
+import org.fsmsample.factory.FsmSampleFactory;
 import org.junit.Test;
 import org.kevoree.modeling.api.events.ModelElementListener;
 import org.kevoree.modeling.api.events.ModelEvent;
