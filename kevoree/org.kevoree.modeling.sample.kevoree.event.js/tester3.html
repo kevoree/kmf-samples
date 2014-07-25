@@ -12,16 +12,17 @@
 <script  type="text/javascript">
 
 var kevmod = Kotlin.modules['org.kevoree.modeling.sample.kevoree.event.js'];
-var saver = new kevmod.org.kevoree.serializer.JSONModelSerializer();
-var loader = new kevmod.org.kevoree.loader.JSONModelLoader();
-var factory = new kevmod.org.kevoree.impl.DefaultKevoreeFactory();
+var factory = new kevmod.org.kevoree.factory.DefaultKevoreeFactory();
+var saver = factory.createJSONSerializer();
+var loader = factory.createJSONLoader();
+var cloner = factory.createModelCloner();
+var compare = factory.createModelCompare();
 var model = factory.createContainerRoot();
 var actionTypes = kevmod.org.kevoree.modeling.api.util.ActionType;
 /* Declare events listener */
 
 
-var compare = new kevmod.org.kevoree.compare.DefaultModelCompare();
-var event2trace = new kevmod.org.kevoree.modeling.api.trace.Event2Trace(compare);
+var event2trace = new kevmod.org.kevoree.modeling.api.trace.Event2Trace(compare,factory);
 var model2 = factory.createContainerRoot();
 
 var listener = { elementChanged : function(event){
@@ -38,7 +39,7 @@ var listener = { elementChanged : function(event){
     }
     var traces = event2trace.convert(event);
     var traceSeqClonedText = traces.exportToString();
-    var traceSeq = new kevmod.org.kevoree.trace.DefaultTraceSequence();
+    var traceSeq = new kevmod.org.kevoree.modeling.api.trace.TraceSequence(factory);
     traceSeq.populateFromString(traceSeqClonedText);
     traceSeq.applyOn(model2);
 }};

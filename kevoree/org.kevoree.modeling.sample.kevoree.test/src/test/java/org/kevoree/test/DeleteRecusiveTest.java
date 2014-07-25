@@ -2,18 +2,28 @@ package org.kevoree.test;
 
 import org.junit.Test;
 import org.kevoree.*;
-import org.kevoree.impl.DefaultKevoreeFactory;
+import org.kevoree.factory.DefaultKevoreeFactory;
+import org.kevoree.factory.KevoreeFactory;
+import org.kevoree.modeling.api.ModelCloner;
 import org.kevoree.modeling.api.ModelSerializer;
-import org.kevoree.serializer.JSONModelSerializer;
+import org.kevoree.modeling.api.compare.ModelCompare;
+import org.kevoree.modeling.api.json.JSONModelLoader;
+import org.kevoree.modeling.api.json.JSONModelSerializer;
 
 /**
  * Created by duke on 3/13/14.
  */
 public class DeleteRecusiveTest {
 
+    private KevoreeFactory factory = new DefaultKevoreeFactory();
+    private ModelCloner cloner = factory.createModelCloner();
+    private ModelCompare compare = factory.createModelCompare();
+    private JSONModelSerializer saver = factory.createJSONSerializer();
+    private JSONModelLoader loader = factory.createJSONLoader();
+
+
     @Test
     public void test() {
-        KevoreeFactory factory = new DefaultKevoreeFactory();
         ContainerRoot model = factory.createContainerRoot();
         ContainerNode node = factory.createContainerNode();
         node.setName("node0");

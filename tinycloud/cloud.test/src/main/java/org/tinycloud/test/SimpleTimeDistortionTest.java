@@ -3,7 +3,7 @@ package org.tinycloud.test;
 import org.cloud.Cloud;
 import org.cloud.Node;
 import org.cloud.Software;
-import org.cloud.impl.DefaultCloudFactory;
+import org.cloud.factory.CloudFactory;
 
 /**
  * Created with IntelliJ IDEA.
@@ -16,7 +16,7 @@ public class SimpleTimeDistortionTest {
     public static final int NODES_PER_CLOUD = 1000;
     public static final int SOFTWARES_PER_NODE = 1000;
 
-    private static void populate(DefaultCloudFactory factory) {
+    private static void populate(CloudFactory factory) {
         Cloud cloud = factory.createCloud();
 
         for (int i = 0; i < NODES_PER_CLOUD; i++) {
@@ -32,7 +32,10 @@ public class SimpleTimeDistortionTest {
         }
         System.out.println("Persist everything...");
         long startPersist = System.currentTimeMillis();
-        factory.persistBatch(factory.createBatch().addElementAndReachable(cloud));
+        //factory.persistBatch(factory.createBatch().addElementAndReachable(cloud));
+
+        factory.commit();
+
         long endPersist = System.currentTimeMillis();
         System.out.println("Persisted in " + (endPersist - startPersist) + " ms");
     }

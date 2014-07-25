@@ -4,11 +4,12 @@ import org.junit.Test;
 import org.kevoree.ContainerNode;
 import org.kevoree.ComponentType;
 import org.kevoree.ContainerRoot;
-import org.kevoree.KevoreeFactory;
-import org.kevoree.TypeDefinition;
-import org.kevoree.cloner.DefaultModelCloner;
-import org.kevoree.compare.DefaultModelCompare;
-import org.kevoree.impl.DefaultKevoreeFactory;
+import org.kevoree.factory.DefaultKevoreeFactory;
+import org.kevoree.factory.KevoreeFactory;
+import org.kevoree.modeling.api.ModelCloner;
+import org.kevoree.modeling.api.compare.ModelCompare;
+import org.kevoree.modeling.api.json.JSONModelLoader;
+import org.kevoree.modeling.api.json.JSONModelSerializer;
 import org.kevoree.modeling.api.trace.ModelTrace;
 
 import java.util.List;
@@ -19,9 +20,13 @@ import static org.junit.Assert.*;
  * Created by duke on 29/07/13.
  */
 public class ModelComparatorTest {
-    KevoreeFactory factory = new DefaultKevoreeFactory();
-    org.kevoree.modeling.api.compare.ModelCompare compare = new DefaultModelCompare();
-    org.kevoree.modeling.api.ModelCloner cloner = new DefaultModelCloner();
+
+    private KevoreeFactory factory = new DefaultKevoreeFactory();
+    private ModelCloner cloner = factory.createModelCloner();
+    private ModelCompare compare = factory.createModelCompare();
+    private JSONModelSerializer saver = factory.createJSONSerializer();
+    private JSONModelLoader loader = factory.createJSONLoader();
+
 
     @Test
     public void testCompareDiff() {

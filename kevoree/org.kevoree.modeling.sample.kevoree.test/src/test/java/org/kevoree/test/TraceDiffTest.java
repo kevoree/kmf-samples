@@ -3,12 +3,12 @@ package org.kevoree.test;
 import org.junit.Test;
 import org.kevoree.ContainerNode;
 import org.kevoree.ContainerRoot;
-import org.kevoree.KevoreeFactory;
-import org.kevoree.cloner.DefaultModelCloner;
-import org.kevoree.compare.DefaultModelCompare;
-import org.kevoree.impl.DefaultKevoreeFactory;
+import org.kevoree.factory.DefaultKevoreeFactory;
+import org.kevoree.factory.KevoreeFactory;
 import org.kevoree.modeling.api.ModelCloner;
 import org.kevoree.modeling.api.compare.ModelCompare;
+import org.kevoree.modeling.api.json.JSONModelLoader;
+import org.kevoree.modeling.api.json.JSONModelSerializer;
 import org.kevoree.modeling.api.trace.ModelTrace;
 
 import java.util.List;
@@ -18,12 +18,17 @@ import java.util.List;
  */
 public class TraceDiffTest {
 
+    private KevoreeFactory factory = new DefaultKevoreeFactory();
+    private ModelCloner cloner = factory.createModelCloner();
+    private ModelCompare comparator = factory.createModelCompare();
+    private JSONModelSerializer saver = factory.createJSONSerializer();
+    private JSONModelLoader loader = factory.createJSONLoader();
+
+
     @Test
     public void difftest() {
 
         KevoreeFactory factory = new DefaultKevoreeFactory();
-        ModelCompare compare = new DefaultModelCompare();
-        ModelCloner cloner = new DefaultModelCloner();
 
         ContainerRoot model = factory.createContainerRoot();
 
@@ -37,14 +42,14 @@ public class TraceDiffTest {
 
         ContainerRoot model2 = cloner.clone(model);
 
-        List<ModelTrace> traces = compare.diff(model, model2).getTraces();
+        List<ModelTrace> traces = comparator.diff(model, model2).getTraces();
         assert(traces.size() == 0);
 
 
         ContainerNode node3 = factory.createContainerNode();
         node3.setName("node3");
         model.addNodes(node3);
-        traces = compare.diff(model, model2).getTraces();
+        traces = comparator.diff(model, model2).getTraces();
         System.out.println(traces);
 
     }

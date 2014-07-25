@@ -4,14 +4,15 @@ import jet.runtime.typeinfo.JetValueParameter;
 import org.junit.Test;
 import org.kevoree.ContainerNode;
 import org.kevoree.ContainerRoot;
-import org.kevoree.KevoreeFactory;
-import org.kevoree.cloner.DefaultModelCloner;
-import org.kevoree.compare.DefaultModelCompare;
-import org.kevoree.impl.DefaultKevoreeFactory;
+
+import org.kevoree.factory.DefaultKevoreeFactory;
+import org.kevoree.factory.KevoreeFactory;
 import org.kevoree.modeling.api.ModelCloner;
 import org.kevoree.modeling.api.compare.ModelCompare;
 import org.kevoree.modeling.api.events.ModelElementListener;
 import org.kevoree.modeling.api.events.ModelEvent;
+import org.kevoree.modeling.api.json.JSONModelLoader;
+import org.kevoree.modeling.api.json.JSONModelSerializer;
 import org.kevoree.modeling.api.trace.Event2Trace;
 import org.kevoree.modeling.api.trace.ModelTrace;
 import org.kevoree.modeling.api.trace.TraceSequence;
@@ -25,13 +26,18 @@ import java.util.List;
  */
 public class TraceRollbackTest {
 
+    private KevoreeFactory factory = new DefaultKevoreeFactory();
+    private ModelCloner cloner = factory.createModelCloner();
+    private ModelCompare comparator = factory.createModelCompare();
+    private JSONModelSerializer saver = factory.createJSONSerializer();
+    private JSONModelLoader loader = factory.createJSONLoader();
+
+
     @Test
     public void difftest() {
 
         KevoreeFactory factory = new DefaultKevoreeFactory();
-        ModelCompare compare = new DefaultModelCompare();
-        ModelCloner cloner = new DefaultModelCloner();
-        final Event2Trace converter = new Event2Trace(compare);
+        final Event2Trace converter = new Event2Trace(comparator);
 
         ContainerRoot model = factory.createContainerRoot();
 
@@ -42,7 +48,7 @@ public class TraceRollbackTest {
         ContainerRoot backup = cloner.clone(model);
 
 
-        ModelTracker tracker = new ModelTracker(compare);
+        ModelTracker tracker = new ModelTracker(comparator);
         tracker.track(model);
 
         ContainerNode node2 = factory.createContainerNode();
@@ -51,7 +57,7 @@ public class TraceRollbackTest {
 
         tracker.undo();
 
-        assert (compare.diff(model, backup).getTraces().size() == 0);
+        assert (comparator.diff(model, backup).getTraces().size() == 0);
 
     }
 

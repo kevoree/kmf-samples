@@ -3,7 +3,8 @@ package org.kevoree.modeling.sample.thingml;/*
 * Date : 02/09/13
 */
 
-import kmf.thingml.loader.XMIModelLoader;
+import kmf.thingml.ThingmlFactory;
+import kmf.thingml.impl.DefaultThingmlFactory;
 import kmf.thingml.serializer.XMIModelSerializer;
 import org.junit.Test;
 import org.kevoree.modeling.api.KMFContainer;
@@ -19,7 +20,9 @@ public class LoadSaveTest {
     public void loadSaveTest() {
         try {
 
-            ModelLoader loader = new XMIModelLoader();
+            ThingmlFactory factory = new DefaultThingmlFactory();
+
+            ModelLoader loader = factory.createXMILoader();
             ModelSerializer serializer = new XMIModelSerializer();
             KMFContainer container = loader.loadModelFromStream(new FileInputStream(new File(getClass().getResource("/D-CRM.xmi").toURI()))).get(0);
             assert(container != null);

@@ -12,9 +12,11 @@
 <script  type="text/javascript">
 
 var kevmod = Kotlin.modules['org.kevoree.modeling.sample.kevoree.event.js'];
-var saver = new kevmod.org.kevoree.serializer.JSONModelSerializer();
-var loader = new kevmod.org.kevoree.loader.JSONModelLoader();
-var factory = new kevmod.org.kevoree.impl.DefaultKevoreeFactory();
+var factory = new kevmod.org.kevoree.factory.DefaultKevoreeFactory();
+var saver = factory.createJSONSerializer();
+var loader = factory.createJSONLoader();
+var cloner = factory.createModelCloner();
+var compare = factory.createModelCompare();
 var model = factory.createContainerRoot();
 var actionTypes = kevmod.org.kevoree.modeling.api.util.ActionType;
 /* Declare events listener */

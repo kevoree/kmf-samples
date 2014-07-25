@@ -4,9 +4,13 @@ import org.junit.Test;
 import org.kevoree.ContainerNode;
 import org.kevoree.ComponentType;
 import org.kevoree.ContainerRoot;
-import org.kevoree.KevoreeFactory;
 import org.kevoree.TypeDefinition;
-import org.kevoree.impl.DefaultKevoreeFactory;
+import org.kevoree.factory.DefaultKevoreeFactory;
+import org.kevoree.factory.KevoreeFactory;
+import org.kevoree.modeling.api.ModelCloner;
+import org.kevoree.modeling.api.compare.ModelCompare;
+import org.kevoree.modeling.api.json.JSONModelLoader;
+import org.kevoree.modeling.api.json.JSONModelSerializer;
 import org.kevoree.test.modelsync.ModelSync;
 
 /**
@@ -14,10 +18,15 @@ import org.kevoree.test.modelsync.ModelSync;
  */
 public class EventTest {
 
+    private KevoreeFactory factory = new DefaultKevoreeFactory();
+    private ModelCloner cloner = factory.createModelCloner();
+    private ModelCompare compare = factory.createModelCompare();
+    private JSONModelSerializer saver = factory.createJSONSerializer();
+    private JSONModelLoader loader = factory.createJSONLoader();
+
+
     @Test
     public void testEvent1() {
-
-        KevoreeFactory factory = new DefaultKevoreeFactory();
 
         ContainerRoot modelM0 = factory.createContainerRoot();
         ContainerRoot modelM1 = factory.createContainerRoot();
@@ -63,7 +72,6 @@ public class EventTest {
     @Test
     public void testEvent2() {
 
-        KevoreeFactory factory = new DefaultKevoreeFactory();
         ContainerRoot modelM0 = factory.createContainerRoot();
 
         ContainerNode newNode = factory.createContainerNode();
