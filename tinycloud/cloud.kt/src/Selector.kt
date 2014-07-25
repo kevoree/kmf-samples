@@ -2,6 +2,8 @@
  * Created by duke on 7/21/14.
  */
 
+
+
 import java.util.HashMap
 import org.cloud.impl.DefaultCloudFactory
 import org.cloud.serializer.JSONModelSerializer
@@ -12,6 +14,22 @@ import org.kevoree.modeling.api.util.ModelAttributeVisitor
 
 fun main(args: Array<String>) {
 
+    var factory = DefaultCloudFactory()
+    var model = factory.createCloud();
+    factory.root(model)
+    var saver = factory.createJSONSerializer()
+    model.addNodes(factory.createNode().withId("node0").withVersion("1.0"))
+    model.addNodes(factory.createNode().withId("node1").withVersion("1.0"))
+
+    model.nodes.get(0).addSoftwares(factory.createSoftware().withName("soft0"))
+    model.nodes.get(1).addSoftwares(factory.createSoftware().withName("soft1"))
+
+    println(model.select("nodes[id=*]"))
+    println(model.select("/nodes[id=*]"))
+
+
+
+    /*
     var factory = DefaultCloudFactory()
     var model = factory.createCloud();
     var saver = factory.createJSONSerializer()
@@ -46,6 +64,26 @@ fun main(args: Array<String>) {
     println(model.select("node*[id=*]/softwares[name=soft*]"))
 
     println(model.nodes.get(1).path())
+      */
+
+    /*
+    var factory = DefaultCloudFactory();
+    var time = factory.time("0")
+    var model = time.factory().createCloud();
+    time.root(model);
+    time.commit();
+
+    println(time.lookup("/"))
+      */
+    /*
+    model.addNodes(factory.createNode().withId("node0").withVersion("1.0"))
+    model.addNodes(factory.createNode().withId("node1").withVersion("1.0"))
+    model.nodes.get(0).addSoftwares(factory.createSoftware().withName("soft0"))
+    model.nodes.get(1).addSoftwares(factory.createSoftware().withName("soft1"))
+    */
+
+
+
 
 }
 
