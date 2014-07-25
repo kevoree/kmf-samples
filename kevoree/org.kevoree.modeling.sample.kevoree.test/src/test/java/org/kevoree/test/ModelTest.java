@@ -5,10 +5,14 @@ import org.jetbrains.annotations.NotNull;
 import org.junit.Test;
 import org.kevoree.*;
 import org.kevoree.container.KMFContainerImpl;
-import org.kevoree.impl.DefaultKevoreeFactory;
-import org.kevoree.modeling.api.KMFContainer;
+import org.kevoree.factory.DefaultKevoreeFactory;
+import org.kevoree.factory.KevoreeFactory;
+import org.kevoree.modeling.api.ModelCloner;
+import org.kevoree.modeling.api.compare.ModelCompare;
 import org.kevoree.modeling.api.events.ModelElementListener;
 import org.kevoree.modeling.api.events.ModelEvent;
+import org.kevoree.modeling.api.json.JSONModelLoader;
+import org.kevoree.modeling.api.json.JSONModelSerializer;
 
 import java.util.concurrent.Semaphore;
 
@@ -19,7 +23,13 @@ import static org.junit.Assert.*;
  */
 public class ModelTest {
 
-    protected KevoreeFactory factory = new DefaultKevoreeFactory();
+    private KevoreeFactory factory = new DefaultKevoreeFactory();
+    private ModelCloner cloner = factory.createModelCloner();
+    private ModelCompare comparator = factory.createModelCompare();
+    private JSONModelSerializer saver = factory.createJSONSerializer();
+    private JSONModelLoader loader = factory.createJSONLoader();
+
+
     private Semaphore sema = new Semaphore(0);
 
 

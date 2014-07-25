@@ -1,19 +1,28 @@
 package org.kevoree.test.modelsync;
 
+import org.kevoree.factory.DefaultKevoreeFactory;
+import org.kevoree.factory.KevoreeFactory;
 import org.kevoree.modeling.api.KMFContainer;
 import org.kevoree.modeling.api.ModelCloner;
+import org.kevoree.modeling.api.compare.ModelCompare;
 import org.kevoree.modeling.api.events.*;
+import org.kevoree.modeling.api.json.JSONModelLoader;
+import org.kevoree.modeling.api.json.JSONModelSerializer;
 import org.kevoree.modeling.api.util.ElementAttributeType;
-import org.kevoree.serializer.JSONModelSerializer;
 
 /**
  * Created by duke on 24/07/13.
  */
 public class ModelSyncListener implements ModelElementListener {
 
+    private KevoreeFactory factory = new DefaultKevoreeFactory();
+    private ModelCloner cloner = factory.createModelCloner();
+    private ModelCompare compare = factory.createModelCompare();
+    private JSONModelSerializer saver = factory.createJSONSerializer();
+    private JSONModelLoader loader = factory.createJSONLoader();
+
+
     private KMFContainer currentModel = null;
-    final ModelCloner cloner = new org.kevoree.cloner.DefaultModelCloner();
-    final JSONModelSerializer saver = new JSONModelSerializer();
 
     public ModelSyncListener(KMFContainer m0) {
         currentModel = m0;

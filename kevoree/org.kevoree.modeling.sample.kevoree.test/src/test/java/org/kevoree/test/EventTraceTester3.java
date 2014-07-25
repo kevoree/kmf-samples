@@ -3,19 +3,26 @@ package org.kevoree.test;
 import org.junit.Test;
 import org.kevoree.ContainerNode;
 import org.kevoree.ContainerRoot;
-import org.kevoree.KevoreeFactory;
-import org.kevoree.cloner.DefaultModelCloner;
-import org.kevoree.compare.DefaultModelCompare;
-import org.kevoree.impl.DefaultKevoreeFactory;
+import org.kevoree.factory.DefaultKevoreeFactory;
+import org.kevoree.factory.KevoreeFactory;
+import org.kevoree.modeling.api.ModelCloner;
 import org.kevoree.modeling.api.compare.ModelCompare;
 import org.kevoree.modeling.api.events.ModelElementListener;
 import org.kevoree.modeling.api.events.ModelEvent;
+import org.kevoree.modeling.api.json.JSONModelLoader;
+import org.kevoree.modeling.api.json.JSONModelSerializer;
 import org.kevoree.modeling.api.trace.Event2Trace;
 import org.kevoree.modeling.api.trace.TraceSequence;
-import org.kevoree.trace.DefaultTraceSequence;
 
 
 public class EventTraceTester3 {
+
+    private KevoreeFactory factory = new DefaultKevoreeFactory();
+    private ModelCloner cloner = factory.createModelCloner();
+    private ModelCompare compare = factory.createModelCompare();
+    private JSONModelSerializer saver = factory.createJSONSerializer();
+    private JSONModelLoader loader = factory.createJSONLoader();
+
 
     @Test
     public void testEventTrace() {
@@ -33,7 +40,7 @@ public class EventTraceTester3 {
 
         try {
 
-            ContainerRoot clonedModel = (ContainerRoot) new DefaultModelCloner().clone(model);
+            ContainerRoot clonedModel = (ContainerRoot) cloner.clone(model);
 
             EventListenerImpl listener = new EventListenerImpl();
             model.addModelTreeListener(listener);
@@ -52,8 +59,7 @@ public class EventTraceTester3 {
 
     private class EventListenerImpl implements ModelElementListener {
 
-        TraceSequence traceSequence = new DefaultTraceSequence();
-        ModelCompare compare = new DefaultModelCompare();
+        TraceSequence traceSequence = new TraceSequence(factory);
 
         @Override
         public void elementChanged(ModelEvent modelEvent) {

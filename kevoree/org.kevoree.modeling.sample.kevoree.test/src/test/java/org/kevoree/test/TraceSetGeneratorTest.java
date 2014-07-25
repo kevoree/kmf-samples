@@ -1,9 +1,13 @@
 package org.kevoree.test;
 
 import org.junit.Test;
-import org.kevoree.KevoreeFactory;
-import org.kevoree.impl.DefaultKevoreeFactory;
+import org.kevoree.factory.DefaultKevoreeFactory;
+import org.kevoree.factory.KevoreeFactory;
 import org.kevoree.impl.DeployUnitImpl;
+import org.kevoree.modeling.api.ModelCloner;
+import org.kevoree.modeling.api.compare.ModelCompare;
+import org.kevoree.modeling.api.json.JSONModelLoader;
+import org.kevoree.modeling.api.json.JSONModelSerializer;
 import org.kevoree.modeling.api.trace.ModelTrace;
 
 import java.util.List;
@@ -15,10 +19,15 @@ import static org.junit.Assert.assertTrue;
  */
 public class TraceSetGeneratorTest {
 
+    private KevoreeFactory factory = new DefaultKevoreeFactory();
+    private ModelCloner cloner = factory.createModelCloner();
+    private ModelCompare comparator = factory.createModelCompare();
+    private JSONModelSerializer saver = factory.createJSONSerializer();
+    private JSONModelLoader loader = factory.createJSONLoader();
+
+
     @Test
     public void settest() {
-
-        KevoreeFactory factory = new DefaultKevoreeFactory();
 
         DeployUnitImpl du0 = (DeployUnitImpl) factory.createDeployUnit();
         du0.setName("model");
