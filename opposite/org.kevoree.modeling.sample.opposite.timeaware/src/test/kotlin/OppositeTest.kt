@@ -17,10 +17,9 @@
  */
 
 import org.junit.Test
-import kmf.test.TestFactory
-import kmf.test.impl.DefaultTestFactory
 import kmf.test.A
 import kmf.test.B
+import kmf.factory.DefaultKmfFactory
 
 /*
 * Author : Gregory Nain (developer.name@uni.lu)
@@ -31,7 +30,7 @@ import kmf.test.B
 
 class OppositeTest {
 
-    val factory = DefaultTestFactory()
+    val factory = DefaultKmfFactory()
     /*
     Test fun optionalSingleA_optionalSingleB_Test() {
         //val container = TestFactory.createContainer

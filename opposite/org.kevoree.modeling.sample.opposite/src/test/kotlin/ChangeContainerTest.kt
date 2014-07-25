@@ -1,6 +1,5 @@
 
 
-import kmf.test.impl.DefaultTestFactory
 import org.junit.Test
 import org.kevoree.modeling.api.persistence.MemoryDataStore
 import kotlin.test.assertNotNull
@@ -12,7 +11,7 @@ import kotlin.test.assertNull
 
 class ChangeContainerTest {
 
-    val factory = DefaultTestFactory()
+    val factory = kmf.factory.DefaultKmfFactory()
 
     Test fun changeContainerTest() {
         var container = factory.createContainer()
