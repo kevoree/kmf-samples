@@ -3,13 +3,13 @@ package org.kevoree.modeling.sample.thingml;/*
 * Date : 02/09/13
 */
 
-import kmf.thingml.ThingmlFactory;
-import kmf.thingml.impl.DefaultThingmlFactory;
-import kmf.thingml.serializer.XMIModelSerializer;
+import thingml.factory.DefaultThingmlFactory;
+import thingml.factory.ThingmlFactory;
 import org.junit.Test;
 import org.kevoree.modeling.api.KMFContainer;
 import org.kevoree.modeling.api.ModelLoader;
 import org.kevoree.modeling.api.ModelSerializer;
+import org.kevoree.modeling.api.xmi.XMIModelSerializer;
 
 import java.io.*;
 import java.net.URISyntaxException;
@@ -21,11 +21,13 @@ public class LoadSaveTest {
         try {
 
             ThingmlFactory factory = new DefaultThingmlFactory();
-
             ModelLoader loader = factory.createXMILoader();
             ModelSerializer serializer = new XMIModelSerializer();
-            KMFContainer container = loader.loadModelFromStream(new FileInputStream(new File(getClass().getResource("/D-CRM.xmi").toURI()))).get(0);
+
+            KMFContainer container = loader.loadModelFromStream(getClass().getClassLoader().getResourceAsStream("D-CRM.xmi")).get(0);
             assert(container != null);
+
+            System.out.println("Load done");
 
             File tempFile = File.createTempFile("kmfTest_" + System.currentTimeMillis(), "kev");
             System.out.println(tempFile.getAbsolutePath());
@@ -39,10 +41,8 @@ public class LoadSaveTest {
             KMFContainer container2 = loader.loadModelFromStream(new FileInputStream(tempFile)).get(0);
             assert(container2 != null);
 
-            tempFile.deleteOnExit();
+            //tempFile.deleteOnExit();
         } catch (FileNotFoundException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        } catch (URISyntaxException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         } catch (IOException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
