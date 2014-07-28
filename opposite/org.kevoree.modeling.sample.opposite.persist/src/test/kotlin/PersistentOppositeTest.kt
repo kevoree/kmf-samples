@@ -17,8 +17,7 @@
  */
 
 import org.junit.Test
-import kmf.test.TestFactory
-import kmf.test.impl.DefaultTestFactory
+import kmf.factory.DefaultKmfFactory
 import kmf.test.A
 import kmf.test.B
 import org.kevoree.modeling.api.persistence.MemoryDataStore
@@ -32,14 +31,14 @@ import org.kevoree.modeling.api.persistence.MemoryDataStore
 
 class PersistentOppositeTest {
 
-    val factory = DefaultTestFactory()
+    val factory = DefaultKmfFactory()
 
     Test fun optionalSingleA_optionalSingleB_Test() {
 
         factory.datastore = MemoryDataStore()
 
         val _container = factory.createContainer()
-        factory.setRoot(_container)
+        factory.root(_container)
 
         val _b = factory.createB()
         _container.addBees(_b);

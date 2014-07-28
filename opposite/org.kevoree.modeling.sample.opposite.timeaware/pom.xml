@@ -14,7 +14,7 @@
     </parent>
 
     <properties>
-        <metamodel.ecore>metamodel/oppositeModel.ecore</metamodel.ecore>
+        <metamodel.ecore>metamodel/kmf.ecore</metamodel.ecore>
     </properties>
 
     <dependencies>

@@ -7,11 +7,11 @@
 <h1>Kotlin Kevoree JS Event tester</h1>
 
 <script src="target/classes/kotlin.js"></script>
-<script type="text/javascript" src="target/classes/org.kevoree.modeling.sample.kevoree.event.js.js"></script>
+<script type="text/javascript" src="target/classes/org.kevoree.js"></script>
 
 <script  type="text/javascript">
 
-var kevmod = Kotlin.modules['org.kevoree.modeling.sample.kevoree.event.js'];
+    var kevmod = Kotlin.modules['org.kevoree'];
 var factory = new kevmod.org.kevoree.factory.DefaultKevoreeFactory();
 var saver = factory.createJSONSerializer();
 var loader = factory.createJSONLoader();

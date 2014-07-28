@@ -9,7 +9,7 @@
     <version>1.0.0-SNAPSHOT</version>
 
     <properties>
-        <metamodel.ecore>metamodel/kevoree.ecore</metamodel.ecore>
+        <metamodel.ecore>metamodel/org.kevoree.mm</metamodel.ecore>
     </properties>
 
     <parent>

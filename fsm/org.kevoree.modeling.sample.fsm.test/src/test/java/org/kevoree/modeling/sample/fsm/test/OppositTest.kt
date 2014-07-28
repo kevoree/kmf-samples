@@ -18,9 +18,9 @@
 package org.kevoree.test
 
 import org.junit.Test
-import org.fsmsample.FSM
-import org.fsmsample.State
-import org.fsmsample.factory.DefaultFsmSampleFactory
+import fsmsample.FSM
+import fsmsample.State
+import org.fsmsample.factory.DefaultFsmsampleFactory
 
 
 /**
@@ -33,12 +33,12 @@ import org.fsmsample.factory.DefaultFsmSampleFactory
 
 public class OppositTest {
 
-    val factory = DefaultFsmSampleFactory()
+    val factory = DefaultFsmsampleFactory()
   var localFsm : FSM = factory.createFSM()
 
 
   fun createModel() {
-    val factory = DefaultFsmSampleFactory()
+    val factory = DefaultFsmsampleFactory()
     localFsm = factory.createFSM()
 
     val initState = factory.createState()
@@ -61,7 +61,7 @@ public class OppositTest {
 
     createModel()
 
-    val factory = DefaultFsmSampleFactory()
+    val factory = DefaultFsmsampleFactory()
 
     val t1 = factory.createTransition()
     val t2 = factory.createTransition()

@@ -6,13 +6,10 @@
 <body>
 <h1>Kotlin Kevoree JS Event tester</h1>
 
-<script src="target/js/kotlin-lib-ecma5.js"></script>
-<script src="target/js/kotlin-lib.js"></script>
-<script src="target/js/kotlin-maps.js"></script>
-<script type="text/javascript" src="target/classes/org.kevoree.modeling.sample.kevoree.js.js"></script>
+<script type="text/javascript" src="target/classes/org.kevoree.merged.js"></script>
 
 <script  type="text/javascript">
-var kevmod = Kotlin.modules['org.kevoree.modeling.sample.kevoree.js'];
+var kevmod = Kotlin.modules['org.kevoree'];
 var factory = new kevmod.org.kevoree.factory.DefaultKevoreeFactory();
 var saver = factory.createJSONSerializer();
 var loader = factory.createJSONLoader();
