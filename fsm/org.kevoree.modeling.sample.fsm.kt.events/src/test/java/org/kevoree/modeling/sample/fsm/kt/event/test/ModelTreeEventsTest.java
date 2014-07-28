@@ -3,11 +3,11 @@ package org.kevoree.modeling.sample.fsm.kt.event.test;/*
 * Date : 05/07/13
 */
 
-import org.fsmsample.FSM;
-import org.fsmsample.State;
-import org.fsmsample.Transition;
-import org.fsmsample.factory.DefaultFsmSampleFactory;
-import org.fsmsample.factory.FsmSampleFactory;
+import fsmsample.FSM;
+import fsmsample.State;
+import fsmsample.Transition;
+import org.fsmsample.factory.DefaultFsmsampleFactory;
+import org.fsmsample.factory.FsmsampleFactory;
 import org.junit.Test;
 import org.kevoree.modeling.api.events.ModelElementListener;
 import org.kevoree.modeling.api.events.ModelEvent;
@@ -23,7 +23,7 @@ import static org.junit.Assert.assertTrue;
 
 public class ModelTreeEventsTest {
 
-    FsmSampleFactory factory = new DefaultFsmSampleFactory();
+    FsmsampleFactory factory = new DefaultFsmsampleFactory();
     Semaphore setNameT0_Fsm = new Semaphore(0);
     Semaphore setNameT0_S0 = new Semaphore(0);
 

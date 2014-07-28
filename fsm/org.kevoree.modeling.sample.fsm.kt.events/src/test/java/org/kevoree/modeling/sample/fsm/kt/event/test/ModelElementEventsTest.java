@@ -3,11 +3,10 @@ package org.kevoree.modeling.sample.fsm.kt.event.test;/*
 * Date : 05/07/13
 */
 
-import org.fsmsample.FSM;
-import org.fsmsample.State;
-import org.fsmsample.Transition;
-import org.fsmsample.factory.DefaultFsmSampleFactory;
-import org.fsmsample.factory.FsmSampleFactory;
+import fsmsample.State;
+import fsmsample.Transition;
+import org.fsmsample.factory.DefaultFsmsampleFactory;
+import org.fsmsample.factory.FsmsampleFactory;
 import org.kevoree.modeling.api.util.ActionType;
 import org.kevoree.modeling.api.util.ElementAttributeType;
 import org.junit.Test;
@@ -25,7 +24,7 @@ import static org.junit.Assert.assertTrue;
 
 public class ModelElementEventsTest {
 
-    FsmSampleFactory factory = new DefaultFsmSampleFactory();
+    FsmsampleFactory factory = new DefaultFsmsampleFactory();
     Semaphore setAttribute = new Semaphore(0);
     Semaphore unsetAttribute = new Semaphore(0);
     Semaphore setReference = new Semaphore(0);
