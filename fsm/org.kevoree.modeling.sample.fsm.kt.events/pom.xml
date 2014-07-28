@@ -9,7 +9,7 @@
     <version>1.0.0-SNAPSHOT</version>
 
     <properties>
-        <metamodel.ecore>metamodel/fsm_with_ids.ecore</metamodel.ecore>
+        <metamodel.ecore>metamodel/org.fsmsample.ecore</metamodel.ecore>
     </properties>
 
     <parent>
