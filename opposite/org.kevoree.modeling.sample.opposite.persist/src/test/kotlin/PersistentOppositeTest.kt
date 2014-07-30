@@ -84,8 +84,6 @@ class PersistentOppositeTest {
         aPath = a.path()
         factory.commit();
         a = factory.lookup(aPath)!! as A
-        println("LookupFactory" + factory)
-        println("A Path->" + aPath);
         assert(a != null, "A Path: " + aPath);
         b = factory.lookup(bPath)!! as B
         assert(b.optionalSingleA_optionalSingleB != null)
