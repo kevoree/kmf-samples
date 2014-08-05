@@ -42,8 +42,6 @@
                         </goals>
                         <configuration>
                             <ecore>${metamodel.ecore}</ecore>
-                            <selector>true</selector>
-                            <packagePrefix>org</packagePrefix>
                             <persistence>true</persistence>
                             <timeAware>true</timeAware>
 							<events>true</events>

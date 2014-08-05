@@ -21,6 +21,7 @@ import kmf.factory.DefaultKmfFactory
 import kmf.test.A
 import kmf.test.B
 import org.kevoree.modeling.api.persistence.MemoryDataStore
+import kmf.factory.KmfTransactionManager
 
 /*
 * Author : Gregory Nain (developer.name@uni.lu)
@@ -31,38 +32,38 @@ import org.kevoree.modeling.api.persistence.MemoryDataStore
 
 class PersistentOppositeTest {
 
-    val factory = DefaultKmfFactory()
+    val transactionManager = KmfTransactionManager(MemoryDataStore())
 
     Test fun optionalSingleA_optionalSingleB_Test() {
 
-        factory.datastore = MemoryDataStore()
+        val transaction = transactionManager.createTransaction()
 
-        val _container = factory.createContainer()
-        factory.root(_container)
+        val _container = transaction.createContainer()
+        transaction.root(_container)
 
-        val _b = factory.createB()
+        val _b = transaction.createB()
         _container.addBees(_b);
         val bPath = _b.path()
 
-        factory.commit();
+        transaction.commit();
 
         //Set a in B
-        var b = factory.lookup(bPath)!! as B
-        var a = factory.createA()
+        var b = transaction.lookup(bPath)!! as B
+        var a = transaction.createA()
         b.optionalSingleA_optionalSingleB = a
         var aPath = a.path()
 
-        factory.commit();
-        a = factory.lookup(aPath)!! as A
-        b = factory.lookup(bPath)!! as B
+        transaction.commit();
+        a = transaction.lookup(aPath)!! as A
+        b = transaction.lookup(bPath)!! as B
 
         assert(a.optionalSingleA_optionalSingleB != null && a.optionalSingleA_optionalSingleB == b)
         assert(a.eContainer() == b, "eContainer:" + a.eContainer().javaClass)
 
         b.optionalSingleA_optionalSingleB = a
-        factory.commit();
-        a = factory.lookup(aPath)!! as A
-        b = factory.lookup(bPath)!! as B
+        transaction.commit();
+        a = transaction.lookup(aPath)!! as A
+        b = transaction.lookup(bPath)!! as B
         assert(a.optionalSingleA_optionalSingleB != null && a.optionalSingleA_optionalSingleB == b)
         assert(a.eContainer() == b, "eContainer:" + a.eContainer().javaClass)
 
@@ -71,39 +72,39 @@ class PersistentOppositeTest {
         b.optionalSingleA_optionalSingleB = null
         assert(a.eContainer() == null, "eContainer:" + a.eContainer().toString())
 
-        factory.commit();
-        b = factory.lookup(bPath)!! as B
+        transaction.commit();
+        b = transaction.lookup(bPath)!! as B
         assert(b.optionalSingleA_optionalSingleB == null)
-        assert(factory.lookup(aPath) == null, factory.lookup(aPath).toString())
+        assert(transaction.lookup(aPath) == null, transaction.lookup(aPath).toString())
 
         //Set B in A
-        a = factory.createA()
+        a = transaction.createA()
         a.optionalSingleA_optionalSingleB = b
         assert(b.optionalSingleA_optionalSingleB != null && b.optionalSingleA_optionalSingleB== a)
         assert(a.eContainer() == b)
         aPath = a.path()
-        factory.commit();
-        a = factory.lookup(aPath)!! as A
+        transaction.commit();
+        a = transaction.lookup(aPath)!! as A
         assert(a != null, "A Path: " + aPath);
-        b = factory.lookup(bPath)!! as B
+        b = transaction.lookup(bPath)!! as B
         assert(b.optionalSingleA_optionalSingleB != null)
         assert(b.optionalSingleA_optionalSingleB != null && b.optionalSingleA_optionalSingleB == a)
         assert(a.eContainer() == b)
 
         //Set B in A
         a.optionalSingleA_optionalSingleB = b
-        factory.commit();
-        a = factory.lookup(aPath)!! as A
-        b = factory.lookup(bPath)!! as B
+        transaction.commit();
+        a = transaction.lookup(aPath)!! as A
+        b = transaction.lookup(bPath)!! as B
         assert(b.optionalSingleA_optionalSingleB != null && b.optionalSingleA_optionalSingleB== a)
         assert(a.eContainer() == b)
 
         //Remove B from A
         a.optionalSingleA_optionalSingleB = null
-        factory.commit();
-        b = factory.lookup(bPath)!! as B
+        transaction.commit();
+        b = transaction.lookup(bPath)!! as B
         assert(b.optionalSingleA_optionalSingleB == null)
-        assert(factory.lookup(aPath) == null, factory.lookup(aPath).toString())
+        assert(transaction.lookup(aPath) == null, transaction.lookup(aPath).toString())
 
     }
 

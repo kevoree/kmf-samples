@@ -4,29 +4,53 @@
 
 
 
-import java.util.HashMap
-import org.cloud.impl.DefaultCloudFactory
-import org.cloud.serializer.JSONModelSerializer
 import org.kevoree.modeling.api.KMFContainer
-import java.util.ArrayList
 import org.kevoree.modeling.api.util.ModelVisitor
-import org.kevoree.modeling.api.util.ModelAttributeVisitor
+import cloud.factory.CloudTransactionManager
+import org.kevoree.modeling.api.persistence.MemoryDataStore
+import cloud.Cloud
 
 fun main(args: Array<String>) {
 
-    var factory = DefaultCloudFactory()
-    var model = factory.createCloud();
-    factory.root(model)
-    var saver = factory.createJSONSerializer()
-    model.addNodes(factory.createNode().withId("node0").withVersion("1.0"))
-    model.addNodes(factory.createNode().withId("node1").withVersion("1.0"))
+    var manager = CloudTransactionManager(MemoryDataStore())
+    var transaction = manager.createTransaction()
+    var model: Cloud = transaction.time(0).createCloud();
+    transaction.time(0).root(model)
 
-    model.nodes.get(0).addSoftwares(factory.createSoftware().withName("soft0"))
-    model.nodes.get(1).addSoftwares(factory.createSoftware().withName("soft1"))
+    model.addNodes(transaction.time(0).createNode().withId("node0").withVersion("1.0"))
+    model.addNodes(transaction.time(0).createNode().withId("node1").withVersion("1.0"))
+
+    model.nodes.get(0).addHosted(transaction.time(0).createNode().withId("child0").withVersion("1.0"))
+    model.nodes.get(1).addHosted(transaction.time(0).createNode().withId("child1").withVersion("1.0"))
+
+
+    model.nodes.get(0).addSoftwares(transaction.time(0).createSoftware().withName("soft0"))
+    model.nodes.get(1).addSoftwares(transaction.time(0).createSoftware().withName("soft1"))
 
     println(model.select("nodes[id=*]"))
     println(model.select("/nodes[id=*]"))
 
+    object visitor : ModelVisitor() {
+        override fun visit(elem: KMFContainer, refNameInParent: String, parent: KMFContainer) {
+            println(elem.path())
+        }
+    }
+
+
+
+    println("NonDeep")
+    model.visitContained(visitor)
+    println("End NonDeep")
+
+
+    println("NonContained")
+    model.deepVisitContained(visitor)
+    println("End NonContained")
+
+
+    println("Full")
+    model.deepVisitReferences(visitor)
+    println("End Full")
 
 
     /*
@@ -81,8 +105,6 @@ fun main(args: Array<String>) {
     model.nodes.get(0).addSoftwares(factory.createSoftware().withName("soft0"))
     model.nodes.get(1).addSoftwares(factory.createSoftware().withName("soft1"))
     */
-
-
 
 
 }

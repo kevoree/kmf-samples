@@ -20,6 +20,8 @@ import org.junit.Test
 import kmf.test.A
 import kmf.test.B
 import kmf.factory.DefaultKmfFactory
+import kmf.factory.KmfTransactionManager
+import org.kevoree.modeling.api.persistence.MemoryDataStore
 
 /*
 * Author : Gregory Nain (developer.name@uni.lu)
@@ -30,11 +32,13 @@ import kmf.factory.DefaultKmfFactory
 
 class OppositeTest {
 
-    val factory = DefaultKmfFactory()
+    val transactionManager = KmfTransactionManager(MemoryDataStore())
+    val transaction = transactionManager.createTransaction()
+
     Test fun optionalSingleA_optionalSingleB_Test() {
         //val container = TestFactory.createContainer
-        val b = factory.createB()
-        val a = factory.createA()
+        val b = transaction.createB()
+        val a = transaction.createA()
 
         //Set a in B
         b.optionalSingleA_optionalSingleB = a
@@ -70,8 +74,8 @@ class OppositeTest {
 
     Test fun mandatorySingleA_mandatorySingleB_Test() {
         //val container = TestFactory.createContainer
-        val b = factory.createB()
-        val a = factory.createA()
+        val b = transaction.createB()
+        val a = transaction.createA()
 
         //Set a in B
         b.mandatorySingleA_mandatorySingleB = a
@@ -114,8 +118,8 @@ class OppositeTest {
 
     Test fun optionalSingleA_MandatorySingleB_Test() {
         //val container = TestFactory.createContainer
-        val b = factory.createB()
-        val a = factory.createA()
+        val b = transaction.createB()
+        val a = transaction.createA()
 
         //Set a in B
         b.optionalSingleA_MandatorySingleB = a
@@ -158,9 +162,9 @@ class OppositeTest {
 
     Test fun optionalSingleA_StarListB_Test() {
         //val container = TestFactory.createContainer
-        val b = factory.createB()
-        val a = factory.createA()
-        val a2 = factory.createA()
+        val b = transaction.createB()
+        val a = transaction.createA()
+        val a2 = transaction.createA()
 
         //add a in B
         b.addOptionalSingleA_StarListB(a)
@@ -239,10 +243,10 @@ class OppositeTest {
 
     Test fun starListA_StarListB_Test() {
 
-        val b = factory.createB()
-        val b2 = factory.createB()
-        val a = factory.createA()
-        val a2 = factory.createA()
+        val b = transaction.createB()
+        val b2 = transaction.createB()
+        val a = transaction.createA()
+        val a2 = transaction.createA()
         val listA = java.util.ArrayList<A>()
         listA.add(a)
         listA.add(a2)
@@ -344,9 +348,9 @@ class OppositeTest {
 
     Test fun mandatorySingleA_StarListB_Test() {
         //val container = TestFactory.createContainer
-        val b = factory.createB()
-        val a = factory.createA()
-        val a2 = factory.createA()
+        val b = transaction.createB()
+        val a = transaction.createA()
+        val a2 = transaction.createA()
 
         //add a in B
         b.addMandatorySingleA_StarListB(a)
@@ -427,9 +431,9 @@ class OppositeTest {
 
     Test fun A_optionalSingleRef() {
 
-        val a = factory.createA()
-        val b = factory.createB()
-        val b2 = factory.createB()
+        val a = transaction.createA()
+        val b = transaction.createB()
+        val b2 = transaction.createB()
 
         a.optionalSingleRef = b
         assert(a.optionalSingleRef != null && a.optionalSingleRef== b)
@@ -446,9 +450,9 @@ class OppositeTest {
     }
 
     Test fun A_mendatorySingleRef() {
-        val a = factory.createA()
-        val b = factory.createB()
-        val b2 = factory.createB()
+        val a = transaction.createA()
+        val b = transaction.createB()
+        val b2 = transaction.createB()
 
         a.mandatorySingleRef = b
         assert(a.mandatorySingleRef == b)
@@ -467,9 +471,9 @@ class OppositeTest {
     }
 
     Test fun A_StarList() {
-        val a = factory.createA()
-        val b = factory.createB()
-        val b2 = factory.createB()
+        val a = transaction.createA()
+        val b = transaction.createB()
+        val b2 = transaction.createB()
         val listB = java.util.ArrayList<B>()
         listB.add(b)
         listB.add(b2)
@@ -507,9 +511,9 @@ class OppositeTest {
 
 
     Test fun B_optionalSingleRef() {
-        val b = factory.createB()
-        val a = factory.createA()
-        val a2 = factory.createA()
+        val b = transaction.createB()
+        val a = transaction.createA()
+        val a2 = transaction.createA()
 
         b.optionalSingleRef = a
         assert(a.eContainer() == b)
@@ -531,9 +535,9 @@ class OppositeTest {
     }
 
     Test fun B_mendatorySingleRef() {
-        val b = factory.createB()
-        val a = factory.createA()
-        val a2 = factory.createA()
+        val b = transaction.createB()
+        val a = transaction.createA()
+        val a2 = transaction.createA()
 
         b.mandatorySingleRef = a
         assert(a.eContainer() == b)
@@ -557,9 +561,9 @@ class OppositeTest {
     }
 
     Test fun B_StarList() {
-        val b = factory.createB()
-        val a = factory.createA()
-        val a2 = factory.createA()
+        val b = transaction.createB()
+        val a = transaction.createA()
+        val a2 = transaction.createA()
         val listA = java.util.ArrayList<A>()
         listA.add(a)
         listA.add(a2)

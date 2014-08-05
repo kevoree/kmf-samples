@@ -8,7 +8,7 @@
     <version>1.0.0-SNAPSHOT</version>
 
     <properties>
-        <metamodel.ecore>cloud.ecore</metamodel.ecore>
+        <metamodel.ecore>cloud.mm</metamodel.ecore>
     </properties>
 
     <parent>
@@ -41,9 +41,7 @@
                         </goals>
                         <configuration>
                             <ecore>${metamodel.ecore}</ecore>
-                            <packagePrefix>org</packagePrefix>
                             <js>true</js>
-                          <!--  <timeAware>true</timeAware>-->
 							<events>true</events>
                         </configuration>
                     </execution>

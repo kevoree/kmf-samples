@@ -8,29 +8,31 @@ import kmf.test.C
 import kmf.test.Container
 import kotlin.test.assertNull
 import kmf.factory.DefaultKmfFactory
+import kmf.factory.KmfTransactionManager
 
 class ChangeContainerTest {
 
-    val factory = DefaultKmfFactory()
+    val transactionManager = KmfTransactionManager(MemoryDataStore())
 
     Test fun changeContainerTest() {
 
-        factory.datastore = MemoryDataStore()
-        var container = factory.createContainer()
+        val transaction = transactionManager.createTransaction()
+
+        var container = transaction.createContainer()
         assert(container.path().equals(""))
-        factory.root(container)
+        transaction.root(container)
         assert(container.path().equals("/"))
-        var b = factory.createB()
+        var b = transaction.createB()
         container.addBees(b)
-        var c = factory.createC()
+        var c = transaction.createC()
         container.addCees(c)
-        var a = factory.createA()
+        var a = transaction.createA()
         b.addPlusList(a)
 
-        var containerPath = container.path()!!
-        var aPath = a.path()!!
-        var bPath = b.path()!!
-        val cPath = c.path()!!
+        var containerPath = container.path()
+        var aPath = a.path()
+        var bPath = b.path()
+        val cPath = c.path()
 
 
         //INITIAL CHECK
@@ -38,17 +40,17 @@ class ChangeContainerTest {
         assert(a.eContainer() == b, "A container is: " + a.eContainer())
 
         //PERSIST
-        factory.commit();
+        transaction.commit();
 
         //RETRIEVE
-        assertNotNull(factory.lookup(containerPath), "Container is null " + containerPath)
-        container = factory.lookup(containerPath) as Container
-        assertNotNull(factory.lookup(bPath), "B is null:" + bPath)
-        b = factory.lookup(bPath)!! as B
-        assertNotNull(factory.lookup(cPath), "C is null:" + cPath)
-        c = factory.lookup(cPath)!! as C
-        assertNotNull(factory.lookup(aPath), "A is null:" + aPath)
-        a = factory.lookup(aPath)!! as A
+        assertNotNull(transaction.lookup(containerPath), "Container is null " + containerPath)
+        container = transaction.lookup(containerPath) as Container
+        assertNotNull(transaction.lookup(bPath), "B is null:" + bPath)
+        b = transaction.lookup(bPath)!! as B
+        assertNotNull(transaction.lookup(cPath), "C is null:" + cPath)
+        c = transaction.lookup(cPath)!! as C
+        assertNotNull(transaction.lookup(aPath), "A is null:" + aPath)
+        a = transaction.lookup(aPath)!! as A
 
         //RE-CHECK
         assert(b.eContainer() == container, "B container is: " + b.eContainer())
@@ -61,22 +63,22 @@ class ChangeContainerTest {
         assert(b.eContainer() == c, "B container is: " + b.eContainer())
         assert(a.eContainer() == b, "A container is: " + a.eContainer())
 
-        factory.commit();
+        transaction.commit();
 
-        assertNull(factory.lookup(bPath), "B Path still exist after move")
-        assertNull(factory.lookup(aPath), "A Path still exist after move")
+        assertNull(transaction.lookup(bPath), "B Path still exist after move")
+        assertNull(transaction.lookup(aPath), "A Path still exist after move")
 
-        aPath = a.path()!!
-        bPath = b.path()!!
+        aPath = a.path()
+        bPath = b.path()
 
         //PERSIST
-        factory.commit();
+        transaction.commit();
 
-        a = factory.lookup(aPath)!! as A
+        a = transaction.lookup(aPath)!! as A
         assertNotNull(a, "A is null")
-        b = factory.lookup(bPath)!! as B
+        b = transaction.lookup(bPath)!! as B
         assertNotNull(b, "B is null")
-        c = factory.lookup(cPath)!! as C
+        c = transaction.lookup(cPath)!! as C
         assertNotNull(c, "C is null")
 
         assert(b.eContainer() == c, "B container is: " + b.eContainer())
