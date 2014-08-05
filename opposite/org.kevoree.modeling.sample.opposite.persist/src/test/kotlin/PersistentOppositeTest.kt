@@ -45,7 +45,8 @@ class PersistentOppositeTest {
         _container.addBees(_b);
         val bPath = _b.path()
 
-        transaction.commit();
+        transaction.commit()
+
 
         //Set a in B
         var b = transaction.lookup(bPath)!! as B
