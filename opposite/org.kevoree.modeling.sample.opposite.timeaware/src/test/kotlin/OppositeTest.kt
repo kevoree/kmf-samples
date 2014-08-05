@@ -30,7 +30,7 @@ import kmf.factory.DefaultKmfFactory
 
 class OppositeTest {
 
-    val factory = DefaultKmfFactory()
+    //val factory = DefaultKmfFactory()
     /*
     Test fun optionalSingleA_optionalSingleB_Test() {
         //val container = TestFactory.createContainer
