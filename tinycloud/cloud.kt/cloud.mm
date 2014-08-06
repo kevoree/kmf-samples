@@ -24,4 +24,5 @@ class cloud.Software  {
     @id
     name : String
     data : String[0,*]
+
 }

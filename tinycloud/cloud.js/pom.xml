@@ -41,8 +41,9 @@
                         </goals>
                         <configuration>
                             <ecore>${metamodel.ecore}</ecore>
-                            <js>true</js>
+                            <js>false</js>
 							<events>true</events>
+                            <timeAware>true</timeAware>
                         </configuration>
                     </execution>
                 </executions>
