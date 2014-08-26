@@ -40,11 +40,11 @@ public class ModelSyncListener implements ModelElementListener {
         }
 
         KMFContainer target = null;
-        if (modelEvent.getSourcePath().equals("")) {
+        if (modelEvent.getPreviousPath().equals("")) {
             target = currentModel;
         } else {
             //DO find by path
-            target = (KMFContainer) currentModel.findByPath(modelEvent.getSourcePath());
+            target = (KMFContainer) currentModel.findByPath(modelEvent.getPreviousPath());
         }
         //reflexive apply
 

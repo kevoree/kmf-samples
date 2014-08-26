@@ -54,7 +54,7 @@ public class ModelTest {
                 @NotNull
                 @Override
                 public void elementChanged(@JetValueParameter(name = "evt") @NotNull ModelEvent modelEvent) {
-                if(root.findByPath(modelEvent.getSourcePath()) == node && modelEvent.getElementAttributeName().equals("name")) {
+                if(root.findByPath(modelEvent.getPreviousPath()) == node && modelEvent.getElementAttributeName().equals("name")) {
                     sema.release();
                 }
                 }
