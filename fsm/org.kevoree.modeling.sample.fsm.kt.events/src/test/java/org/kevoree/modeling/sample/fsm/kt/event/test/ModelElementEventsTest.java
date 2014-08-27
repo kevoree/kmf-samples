@@ -40,7 +40,7 @@ public class ModelElementEventsTest {
 
     private void assertEvent(ModelEvent evt, String expectedPath, String expectedElementAttributeName, ElementAttributeType expectedElementAttributeType, ActionType expectedEventType, Object expectedValue ) {
 
-        assertTrue("Source is not correct. Expected:" + expectedPath + " Was:" + evt.getSourcePath() , evt.getSourcePath().equals(expectedPath));
+        assertTrue("Source is not correct. Expected:" + expectedPath + " Was:" + evt.getPreviousPath() , evt.getPreviousPath().equals(expectedPath));
         assertTrue("ElementAttributeName not correct. Expected: "+expectedElementAttributeName+" Was:" + evt.getElementAttributeName(), evt.getElementAttributeName().equals(expectedElementAttributeName));
         assertTrue("ElementAttributeType not correct. Expected: "+expectedElementAttributeType+" Was:" + evt.getElementAttributeType(), evt.getElementAttributeType()==expectedElementAttributeType);
         assertTrue("EventType is not correct. Expected:" +expectedEventType+" Was:" + evt.getEtype(), evt.getEtype() == expectedEventType);
@@ -48,7 +48,7 @@ public class ModelElementEventsTest {
     }
 
     private void assertEventWithList(ModelEvent evt, String expectedPath, String expectedElementAttributeName, ElementAttributeType expectedElementAttributeType, ActionType expectedEventType, List<? extends Object> expectedValues ) {
-        assertTrue("Source is not correct. Expected:" + expectedPath + " Was:" + evt.getSourcePath() , evt.getSourcePath().equals(expectedPath));
+        assertTrue("Source is not correct. Expected:" + expectedPath + " Was:" + evt.getPreviousPath() , evt.getPreviousPath().equals(expectedPath));
         assertTrue("ElementAttributeName not correct. Expected: "+expectedElementAttributeName+" Was:" + evt.getElementAttributeName(), evt.getElementAttributeName().equals(expectedElementAttributeName));
         assertTrue("ElementAttributeType not correct. Expected: "+expectedElementAttributeType+" Was:" + evt.getElementAttributeType(), evt.getElementAttributeType()==expectedElementAttributeType);
         assertTrue("EventType is not correct. Expected:" +expectedEventType+" Was:" + evt.getEtype(), evt.getEtype() == expectedEventType);
