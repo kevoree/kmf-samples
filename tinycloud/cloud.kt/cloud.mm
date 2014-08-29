@@ -1,13 +1,11 @@
-
-class cloud.Cloud  {
+class cloud.Cloud {
     @contained
     nodes : cloud.Node[0,*]
 
     soft : cloud.Software
-
 }
 
-class cloud.Node  {
+class cloud.Node {
     @id
     id : String
     @id
@@ -20,9 +18,12 @@ class cloud.Node  {
     refs : cloud.Node[0,*]
 }
 
-class cloud.Software  {
+class cloud.Software {
     @id
     name : String
     data : String[0,*]
-
+		
+		
+	@learn(-0.1)
+	price : Int
 }
