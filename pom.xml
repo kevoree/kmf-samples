@@ -9,7 +9,7 @@
     <version>1.0.0-SNAPSHOT</version>
 
     <properties>
-		<kmf.version>3.5.2-SNAPSHOT</kmf.version>
+		<kmf.version>3.5.9-SNAPSHOT</kmf.version>
         <emf.version>2.7.0</emf.version>
     </properties>
 
@@ -48,6 +48,9 @@
 				<module>fsm/org.kevoree.modeling.sample.fsm.kt</module>
 				<module>fsm/org.kevoree.modeling.sample.fsm.kt.events</module>
 		        <module>fsm/org.kevoree.modeling.sample.fsm.test</module>
+
+				<module>telemetry/org.kevoree.modeling.sample.telemetry.kt</module>
+
 
 	</modules>
 
