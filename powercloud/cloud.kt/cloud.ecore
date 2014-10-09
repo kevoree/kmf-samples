@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="ASCII"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore">
+  <ecore:EPackage name="cloud" nsURI="http://cloud" nsPrefix="cloud">
+    <eClassifiers xsi:type="ecore:EClass" name="Cloud">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="nodes" upperBound="-1" eType="/0/Node" containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Node">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="/1" iD="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="softwares" upperBound="-1" eType="/0/Software" containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Software">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="/1" iD="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="data" upperBound="-1" eType="/1"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="tt" eType="/1"/>
+    </eClassifiers>
+  </ecore:EPackage>
+  <ecore:EDataType name="java.lang.String" instanceClassName="java.lang.String"/>
+</xmi:XMI>

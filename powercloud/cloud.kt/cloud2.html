@@ -1,0 +1,19 @@
+<html lang="en">
+<script type="text/javascript" src="cloud2.js"></script>
+<script>
+var model = Kotlin.modules['cloud2'];
+var saver = new model.cloud.serializer.JSONModelSerializer();
+var loader = new model.cloud.loader.JSONModelLoader();
+var cloner = new model.cloud.cloner.DefaultModelCloner();
+var compare = new model.cloud.compare.DefaultModelCompare();
+var factory = new model.cloud.impl.DefaultCloudFactory();
+var saverXmi = new model.cloud.serializer.XMIModelSerializer();
+var loaderXmi = new model.cloud.loader.XMIModelLoader();
+//write your code here ...
+
+    var hello = factory.createCloud();
+console.log(saver.serialize(hello));
+</script><div>Open JavaScript Console...</div>
+
+
+</html>
